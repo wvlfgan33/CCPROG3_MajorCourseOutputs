@@ -20,7 +20,6 @@ public class Main{
 
         VendingMachine m = new VendingMachine();
 //        m.addItem(item1);
-        m.setItem(item2,3);
         m.setItem(item2, 17);
 //        m.addItem(item3,9);
 //        m.addItem(item4, 21);

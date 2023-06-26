@@ -1,3 +1,4 @@
+import model.Denomination;
 import model.Item;
 
 import java.util.HashMap;
@@ -5,17 +6,29 @@ import java.util.Map;
 
 public class VendingMachine {
     private Map<Item, Integer> inventory = new HashMap<>();
+    private Map<Item, Integer> oldInventory;
+    private Map<Denomination, Integer> cash;
+    private Map<Item, Integer> cart;
+    private Double totalEarnings;
+    private Integer minSlots;
+    private Integer maxSlots;
 
+    public VendingMachine(){
+
+    }
 
     // The moderator can use this for versatility.
     public void setItem(Item item, int quantity) { // TODO revise the addItem, because this method performs setItemQuantity
 
-        if (quantity <= 20){
-            System.out.printf("\tAdding item %s with quantity %d...\n", item.getName(), quantity);
-            inventory.put(item, quantity);
+        if ( quantity < 8 ){
+            throw new IllegalArgumentException("Not enough quantity for item: " + item.getName());
+        }
+        else if ( quantity > 20 ){
+            throw new IllegalArgumentException("Quantity limit exceeded for item: " + item.getName());
         }
         else{
-            System.out.println("\tThere is no more space for " + item.getName() + ".");
+            //System.out.printf("\tAdding item %s with quantity %d...\n", item.getName(), quantity);
+            inventory.put(item, quantity);
         }
     }
 
