@@ -1,6 +1,5 @@
-import model.Denomination;
 import model.Item;
-import model.Money;
+import model.CashRegister;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,18 +7,19 @@ import java.util.Map;
 public class VendingMachine {
     private Map<Item, Integer> inventory;
     
-	private Money cashContainer;
-	private Money cashInserted;
+	private CashRegister cashContainer;
+	private CashRegister cashInserted;
 	
     private Map<Item, Integer> cart = new HashMap<>();
-	
-    private Double totalEarnings;
+
+
+//	public Double getTotalEarnings(){
+//
+//	}
 
     public VendingMachine(HashMap<Item, Integer> startingItems){
 		this.inventory = startingItems;
-		
-		
-		
+
     }
 	
 	public void addToCart(Item item, int quantity) {
@@ -46,7 +46,7 @@ public class VendingMachine {
 		return total;
 	}
 	
-	public void insertCash(Money cashToBeInserted) {
+	public void insertCash(CashRegister cashToBeInserted) {
 		this.cashInserted = cashToBeInserted;
 	}
 	

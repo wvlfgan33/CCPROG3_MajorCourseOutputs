@@ -1,7 +1,8 @@
 import model.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 public class Main{
     public static void main(String[] args){
 
@@ -56,26 +57,25 @@ public class Main{
 		}	
 
 		System.out.println(m.getTotalCostInCart());
-		
-		Money moneyyy = new Money(100,100,100,100,100,100,100,100,100);
-		
-		try {
-			Money a = new Money(0,0,0,1,0,0,0,0,0);
-			Money b = new Money(1,1,1,0,0,0,0,0,0);
-			
-			Money difference = moneyyy.subtract(a, b);
-			
-			System.out.println("--------------------------------------");
-			for (var d : difference.getMoney().entrySet()) {
-				System.out.println(d.getKey().getValue() + " pesos, x" + d.getValue());
-			}
-			System.out.println("--------------------------------------");
-			for (var d : moneyyy.getMoney().entrySet()) {
-				System.out.println(d.getKey().getValue() + " pesos, x" + d.getValue());
-			}
-			
-		} catch (Exception e) {
-			System.out.println("not enough money");
-		}
+		// Mymoney = 200
+		// Price of item = 237
+
+		CashRegister cashRegister = new CashRegister();
+//		cashRegister.addCash(Denomination.ONE_HUNDRED, 8);
+//		cashRegister.addCash(Denomination.FIFTY, 4);
+//		cashRegister.addCash(Denomination.TWENTY, 4);
+		cashRegister.addCash(Denomination.TEN, 4);
+		cashRegister.addCash(Denomination.FIVE, 1);
+//		cashRegister.addCash(Denomination.ONE, 4);
+
+		ArrayList<Denomination> myMoney = new ArrayList<>();
+		myMoney.add(Denomination.TEN);
+//		myMoney.add(Denomination.FIFTY);
+		ArrayList<Denomination> change = cashRegister.transact(myMoney, 9);
+
+		System.out.println(change);
+		System.out.println(cashRegister.getCashList());
+
+
     }
 }
