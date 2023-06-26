@@ -1,32 +1,64 @@
 import model.Denomination;
 import model.Item;
+import model.Money;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class VendingMachine {
-    private Map<Item, Integer> inventory = new HashMap<>();
-    private Map<Item, Integer> oldInventory;
-    private Map<Denomination, Integer> cash;
-    private Map<Item, Integer> cart;
+    private Map<Item, Integer> inventory;
+    
+	private Money cashContainer;
+	private Money cashInserted;
+	
+    private Map<Item, Integer> cart = new HashMap<>();
+	
     private Double totalEarnings;
-    private Integer minSlots;
-    private Integer maxSlots;
 
-    public VendingMachine(){
-
+    public VendingMachine(HashMap<Item, Integer> startingItems){
+		this.inventory = startingItems;
+		
+		
+		
     }
+	
+	public void addToCart(Item item, int quantity) {
+		if (quantity > inventory.get(item)) {
+			throw new IllegalArgumentException("Current supply of " + item.getName() + " is not enough.");
+		}
+		
+		cart.put(item, quantity);
+	}
+	
+	public void clearCart() {
+		cart = new HashMap<>();	
+	}
+	
+	public Map<Item, Integer> getCart() {
+		return this.cart;
+	}
+	
+	public double getTotalCostInCart() {
+		double total = 0;
+		for (var cartItem : cart.entrySet()) {
+			total += cartItem.getKey().getPrice() * cartItem.getValue();
+		}
+		return total;
+	}
+	
+	public void insertCash(Money cashToBeInserted) {
+		this.cashInserted = cashToBeInserted;
+	}
+	
+	
+	
+	
 
     // The moderator can use this for versatility.
     public void setItem(Item item, int quantity) { // TODO revise the addItem, because this method performs setItemQuantity
-
-        if ( quantity < 8 ){
-            throw new IllegalArgumentException("Not enough quantity for item: " + item.getName());
-        }
-        else if ( quantity > 20 ){
+		if ( quantity > 20 ){
             throw new IllegalArgumentException("Quantity limit exceeded for item: " + item.getName());
-        }
-        else{
+        } else{
             //System.out.printf("\tAdding item %s with quantity %d...\n", item.getName(), quantity);
             inventory.put(item, quantity);
         }
@@ -47,7 +79,7 @@ public class VendingMachine {
 //            int oneQuantity = quantities.get(i);
 //
 //            System.out.printf("%d. %s x%d: \n\tPrice per item: %s\n", i+1, oneItem.getName(), oneQuantity, oneItem.getPrice());
-        }
+    }
 }
 
 
