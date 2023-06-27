@@ -7,15 +7,20 @@ public class Inventory {
     private ArrayList<Item> inStock;
     private ArrayList<Item> oldInventory;
     private int size;
-    private Summary summary;
+    //private Summary summary;
+	
+	private final int MAX_PER_SLOT = 20;
 
-    public Inventory(Item[] inStock, int[] quantities) {
+
+    public Inventory(Item[] inStock, int[] startingQuantities) {
         this.size = inStock.length;
         this.inStock = new ArrayList<>();
         this.oldInventory = new ArrayList<>();
 
+		//summary.setInitialItemLineup(inStock);
+
         for (int i = 0; i < inStock.length; i++){
-            for (int j = 0; j < quantities[i]; j++){
+            for (int j = 0; j < startingQuantities[i]; j++){
                 this.inStock.add(inStock[i]);
                 this.oldInventory.add(inStock[i]);
             }
@@ -28,10 +33,14 @@ public class Inventory {
 
     public void addItem(Item item, int quantity){
         for (int i = 0; i < quantity; i++){
-            inStock.add(item);
+            if (this.getQuantity(item.getName()) >= MAX_PER_SLOT) {
+				break;
+			}
+			inStock.add(item);
         }
 
     }
+	
     public ArrayList<Item> getInStock(){ return inStock; }
 
     public Item findFirst(String itemName) { //If you want to buy the item, you use this method to find that first item that you want
@@ -76,6 +85,9 @@ public class Inventory {
         return toBeDispensed;
     }
 
+	public ArrayList<Item> getOldInventory() {
+		return this.oldInventory;
+	}
 
 
 

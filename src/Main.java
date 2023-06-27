@@ -60,7 +60,7 @@ public class Main {
 
 //		VendingMachine v = new VendingMachine();
 		Item[] items = {item1, item2, item3, item4, item5};
-		int[] quantities = {3, 1, 1, 1, 1};
+		int[] quantities = {3, 5, 5, 5, 7};
 
 		VendingMachine v = new VendingMachine(items, quantities);
 		CashRegister cashRegister = v.getCashRegister();
@@ -71,7 +71,7 @@ public class Main {
 		cashRegister.addCash(Denomination.FIVE, 1);
 		cashRegister.addCash(Denomination.ONE, 4);
 
-		v.addToCart("Cheetos", 1);
+		v.addToCart("Cheetos", 2);
 		v.addToCart("Pepsi", 1);
 
 		for (int i = 0; i < v.getCart().size(); i++){
@@ -88,12 +88,17 @@ public class Main {
 
 		ArrayList<Denomination> myMoney = new ArrayList<>();
 		myMoney.add(Denomination.ONE_HUNDRED);
+		myMoney.add(Denomination.ONE_HUNDRED);
 		System.out.println(v.payForCart(myMoney));
 
 		ArrayList<Item> currentStockList = v.getInventory().getInStock();
 		for (Item item: currentStockList){
 			System.out.println(item.getName());
 		}
+		System.out.println("----------------------------------");
+		System.out.println(v.getReceipt());
+		
+		System.out.println(v.getSummaryOfOperations());
 
 
 //		System.out.println(change);

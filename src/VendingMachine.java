@@ -2,6 +2,7 @@ import model.Denomination;
 import model.Inventory;
 import model.Item;
 import model.CashRegister;
+import model.Summary;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Map;
 public class VendingMachine { //TODO
 
 	private CashRegister cashRegister;
+	private Summary summary;
 	private Inventory inventory;
 	private boolean isOperational = false;
 	private ArrayList<Item> cart = new ArrayList<>();
@@ -18,8 +20,13 @@ public class VendingMachine { //TODO
 	public VendingMachine(Item[] inStock, int[] quantities) {
 		this.inventory = new Inventory(inStock, quantities);
 		this.cashRegister = new CashRegister();
+		
+		this.summary = new Summary();
+		
 		this.isOperational = true;
 		this.cart = new ArrayList<>();
+		
+		summary.setInitialItemLineup(inStock);
 
 	}
 
@@ -58,14 +65,24 @@ public class VendingMachine { //TODO
 		for (int i = 0; i < this.getCart().size(); i++){
 			this.inventory.dispenseItem(this.getCart().get(i).getName());
 		}
-
+		
+		summary.recordSales(cart);
+		summary.addEarnings(priceOfCart);
+		
+		
+		summary.generateReceipt(cart, priceOfCart);
+		
 		return changeList;
 	}
 
-
-
-
-
+	public String getReceipt() {
+		return summary.getReceipt();
+	}
+	
+	public String getSummaryOfOperations() {
+		String output = summary.getSummaryOfOperations();
+		return output;
+	}
 
 
 
