@@ -18,6 +18,21 @@ public class CashRegister {
 		return cashList;
 	}
 
+	public ArrayList<Denomination> transact(ArrayList<Denomination> payment, double priceOfItem){
+		double totalPayment = 0;
+
+		for (Denomination cash: payment){
+			totalPayment += cash.getValue();
+		}
+		// if yung pinambayad ko mas maliit sa babayaran, di dapat pwede
+		if (totalPayment < priceOfItem){
+			throw new IllegalArgumentException("You are broke");
+		}
+		double totalChange = totalPayment - priceOfItem;
+		ArrayList<Denomination> changeList = this.getChange(totalChange, payment);
+		return changeList;
+	}
+
 	public ArrayList<Denomination> getChange(double totalChange, ArrayList<Denomination> payment){
 		ArrayList<Denomination> temporaryCash = new ArrayList<>();
 		temporaryCash.addAll(cashList);
@@ -39,21 +54,6 @@ public class CashRegister {
 		for (Denomination change: changeList){
 			cashList.remove(change);
 		}
-		return changeList;
-	}
-
-	public ArrayList<Denomination> transact(ArrayList<Denomination> payment, double priceOfItem){
-		double totalPayment = 0;
-
-		for (Denomination cash: payment){
-			totalPayment += cash.getValue();
-		}
-		// if yung pinambayad ko mas maliit sa babayaran, di dapat pwede
-		if (totalPayment < priceOfItem){
-			throw new IllegalArgumentException("You are broke");
-		}
-		double totalChange = totalPayment - priceOfItem;
-		ArrayList<Denomination> changeList = this.getChange(totalChange, payment);
 		return changeList;
 	}
 }
