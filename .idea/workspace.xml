@@ -6,16 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d2a67656-d473-49d0-8a82-a4d96c1cc110" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VendingMachine.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VendingMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/CashRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/CashRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Denomination.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Item.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Money.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Sale.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/insufficientDenominationsException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Inventory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -4,18 +4,17 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Main{
-    public static void main(String[] args){
+public class Main {
+	public static void main(String[] args) {
 
-        // model.Item definition
+		// model.Item definition
 
 
-
-        // Vending Machine
+		// Vending Machine
 
 
 //        m.addItem(item1);
-		  //m.setItem(item2, 17);
+		//m.setItem(item2, 17);
 //        m.addItem(item3,9);
 //        m.addItem(item4, 21);
 //        m.addItem(item5);
@@ -27,7 +26,7 @@ public class Main{
 //        m.printInventory();
 
 		//System.out.println(m.getInventory());
-		
+
 //		m.addToCart(item1, 3);
 //		m.addToCart(item3, 10);
 //		m.addToCart(item4, 10);
@@ -63,31 +62,48 @@ public class Main{
 
 		Item item1 = new Item("Coke", 20.00, 139);
 		Item item2 = new Item("Pepsi", 20.00, 139);
-		Item item3 = new Item("St. Miguel Beer",40.00,43);
-		Item item4 = new Item("St. Joseph Beer",45.00, 43);
-		Item item5 = new Item("Cheetos King Size", 69.00,160);
-		Item item6 = new Item("Cheddar Pringles", 80.00,140);
+		Item item3 = new Item("St. Miguel Beer", 40.00, 43);
+		Item item4 = new Item("St. Joseph Beer", 45.00, 43);
+		Item item5 = new Item("Cheetos King Size", 69.00, 160);
+		Item item6 = new Item("Cheddar Pringles", 80.00, 140);
 		Item item7 = new Item("Bottled Water", 15.00, 0);
-		Item item8 = new Item("Standard Gelato", 100.00,207);
-		Item item9 = new Item("Chocolate Syrup", 20.00,279);
+		Item item8 = new Item("Standard Gelato", 100.00, 207);
+		Item item9 = new Item("Chocolate Syrup", 20.00, 279);
 
 		VendingMachine v = new VendingMachine();
-		Inventory inventory = new Inventory();
-		inventory.addItem(item1);
-		inventory.addItem(item2);
-		inventory.addItem(item3);
-		inventory.addItem(item4);
-		inventory.addItem(item5);
-		inventory.addItem(item6);
+		Item[] items = {item1, item2, item3, item4, item5};
+		int[] quantites = {3, 1, 1, 1, 1};
+		Inventory inventory = new Inventory(items, quantites);
 
-		for (int i = 0; i < inventory.getInStock().toArray().length; i++){
-			System.out.println( inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice()+ " | "
-			+ inventory.getInStock().get(i).getCalories());
 
+//		inventory.addItem(item1, 5);
+//		inventory.addItem(item2);
+//		inventory.addItem(item3);
+//		inventory.addItem(item4);
+//		inventory.addItem(item5);
+//		inventory.addItem(item6);
+
+
+		System.out.println(inventory.getUniqueItemCount());
+//		System.out.println(inventory.getQuantity("Coke"));
+//		System.out.println(inventory.findFirst("Coke").getName());
+		for (int i = 0; i < inventory.getInStock().size(); i++) {
+			System.out.println(inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice() + " | "
+					+ inventory.getInStock().get(i).getCalories());
 		}
-    }
+		System.out.println("-----------------------");
+		ArrayList<Item> beast = inventory.dispenseItem("Coke", 3);
+		for (Item item : beast) {
+			System.out.println(item.getName());
+		}
+		System.out.println("-----------------------");
+		for (int i = 0; i < inventory.getInStock().size(); i++) {
+			System.out.println(inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice() + " | "
+					+ inventory.getInStock().get(i).getCalories());
+		}
 
-
-
-
+	}
 }
+
+
+

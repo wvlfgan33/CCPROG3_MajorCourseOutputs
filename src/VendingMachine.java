@@ -15,13 +15,13 @@ public class VendingMachine { //TODO
 	private ArrayList<Item> cart;
 
 
-	public void addToCart(String name, int quantity){
-
-	}
-
-	public void insertCash(Denomination denomination){
-
-	}
+//	public void addToCart(String name, int quantity){
+//
+//	}
+//
+//	public void insertCash(Denomination denomination){
+//
+//	}
 
 //	public ArrayList<Denomination> cancelTransaction(){
 //
@@ -31,13 +31,13 @@ public class VendingMachine { //TODO
 //
 //	}
 
-	public getcash(){
+//	public getcash(){
+//
+//	}
 
-	}
-
-	public void begin(){ //start vending machine
-
-	}
+//	public void begin(){ //start vending machine
+//
+//	}
 //	public Double getTotalEarnings(){
 //
 //	}

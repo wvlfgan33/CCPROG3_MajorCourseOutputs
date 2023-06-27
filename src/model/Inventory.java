@@ -1,34 +1,81 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Inventory {
-    private ArrayList<Item> inStock = new ArrayList<>();
+    private ArrayList<Item> inStock;
+    private ArrayList<Item> oldInventory;
+    private int size;
     private Summary summary;
 
-    public void addItem(Item item){
-        inStock.add(item);
+    public Inventory(Item[] inStock, int[] quantities) {
+        this.size = inStock.length;
+        this.inStock = new ArrayList<>();
+        this.oldInventory = new ArrayList<>();
 
+        for (int i = 0; i < inStock.length; i++){
+            for (int j = 0; j < quantities[i]; j++){
+                this.inStock.add(inStock[i]);
+                this.oldInventory.add(inStock[i]);
+            }
+        }
     }
 
+    public void addItem(Item item){
+
+        inStock.add(item);
+    }
+    public void addItem(Item item, int quantity){
+        for (int i = 0; i < quantity; i++){
+            inStock.add(item);
+        }
+
+    }
     public ArrayList<Item> getInStock(){ return inStock; }
 
-    public Item findFirst(String itemName){
-        Item itemDummy = new Item("DummyItem", 23.0, 2031.0);
-        return itemDummy;
+    public Item findFirst(String itemName){ //If you want to buy the item, you use this method to find that first item that you want
+        for (int i = 0; i < inStock.size(); i++){
+            if (itemName.equals(inStock.get(i).getName())){
+                return inStock.get(i);
+            }
+            else{
+                throw new IllegalArgumentException("There is no item like that in the vending machine");
+            }
+        }
+        Item item = new Item("asdasd", 2, 3);
+        return item;
     }
 
     public int getQuantity(String itemName){
-        return 1;
+        int quantity = 0;
+        for (int i = 0; i < inStock.size(); i++){
+            if (itemName.equals(inStock.get(i).getName())){
+                quantity += 1;
+            }
+        }
+        return quantity;
     }
 
     public int getUniqueItemCount(){ //Counts all the products that we have in our vending machine
-        return 1;
+        return this.size;
     }
 
-    public ArrayList<Item> dispenseItem(){
-        ArrayList<Item> dummyitem = new ArrayList<>();
-        return dummyitem;
+    public ArrayList<Item> dispenseItem(String name, int quantity){
+
+        ArrayList<Item> toBeDispensed = new ArrayList<>();
+        for (int i = 0; i < inStock.size(); i++){
+
+            if (name.equals(inStock.get(i).getName()) && quantity > 0){
+                quantity -= 1;
+                toBeDispensed.add(inStock.get(i));
+            }
+        }
+
+        for (int i = 0; i < toBeDispensed.size(); i++){
+            inStock.remove(toBeDispensed.get(i));
+        }
+        return toBeDispensed;
     }
 
 
