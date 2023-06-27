@@ -3,6 +3,7 @@ import model.Inventory;
 import model.Item;
 import model.CashRegister;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,29 +12,63 @@ public class VendingMachine { //TODO
 
 	private CashRegister cashRegister;
 	private Inventory inventory;
-	private boolean isOperational;
-	private ArrayList<Item> cart;
+	private boolean isOperational = false;
+	private ArrayList<Item> cart = new ArrayList<>();
+
+	public VendingMachine(Item[] inStock, int[] quantities) {
+		this.inventory = new Inventory(inStock, quantities);
+		this.cashRegister = new CashRegister();
+		this.isOperational = true;
+		this.cart = new ArrayList<>();
+
+	}
+
+	public Inventory getInventory(){ return inventory; }
+	public CashRegister getCashRegister(){ return cashRegister; }
+
+	public void addToCart(String name, int quantity){
+		Item item = inventory.findFirst(name);
+
+		if (quantity > inventory.getQuantity(name)){
+			throw new IllegalArgumentException("Not enough quantity for the requested item");
+		}
+		for (int i = 0; i < quantity; i++){
+			cart.add(item);
+		}
+	}
+	public ArrayList<Item> getCart(){ return cart; }
+
+	public void clearCart(){
+		this.cart = new ArrayList<>();
+	}
+
+	public double getTotalCostInCart(){
+		double total = 0;
+		for (int i = 0; i < this.cart.size(); i++){
+			total += this.cart.get(i).getPrice();
+		}
+		return total;
+	}
 
 
-//	public void addToCart(String name, int quantity){
-//
-//	}
-//
-//	public void insertCash(Denomination denomination){
-//
-//	}
+	public ArrayList<Denomination> payForCart(ArrayList<Denomination> payment){
+		ArrayList<Item> cart = this.getCart();
+		double priceOfCart = this.getTotalCostInCart();
+		ArrayList<Denomination> changeList = this.cashRegister.transact(payment, priceOfCart);
+		for (int i = 0; i < this.getCart().size(); i++){
+			this.inventory.dispenseItem(this.getCart().get(i).getName());
+		}
 
-//	public ArrayList<Denomination> cancelTransaction(){
-//
-//	}
+		return changeList;
+	}
 
-//	public ArrayList<Denomination> transact(){
-//
-//	}
 
-//	public getcash(){
-//
-//	}
+
+
+
+
+
+
 
 //	public void begin(){ //start vending machine
 //
@@ -46,34 +81,9 @@ public class VendingMachine { //TODO
 //		this.inventory = startingItems;
 //
 //    }
-	
-//	public void addToCart(Item item, int quantity) {
-//		if (quantity > inventory.get(item)) {
-//			throw new IllegalArgumentException("Current supply of " + item.getName() + " is not enough.");
-//		}
+
 //
-//		cart.put(item, quantity);
-//	}
-	
-//	public void clearCart() {
-//		cart = new HashMap<>();
-//	}
-//
-//	public Map<Item, Integer> getCart() {
-//		return this.cart;
-//	}
-//
-//	public double getTotalCostInCart() {
-//		double total = 0;
-//		for (var cartItem : cart.entrySet()) {
-//			total += cartItem.getKey().getPrice() * cartItem.getValue();
-//		}
-//		return total;
-//	}
-//
-//
-//
-//
+
 //
 //    // The moderator can use this for versatility.
 //    public void setItem(Item item, int quantity) { // TODO revise the addItem, because this method performs setItemQuantity

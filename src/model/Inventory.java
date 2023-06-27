@@ -23,9 +23,9 @@ public class Inventory {
     }
 
     public void addItem(Item item){
-
         inStock.add(item);
     }
+
     public void addItem(Item item, int quantity){
         for (int i = 0; i < quantity; i++){
             inStock.add(item);
@@ -34,17 +34,16 @@ public class Inventory {
     }
     public ArrayList<Item> getInStock(){ return inStock; }
 
-    public Item findFirst(String itemName){ //If you want to buy the item, you use this method to find that first item that you want
-        for (int i = 0; i < inStock.size(); i++){
-            if (itemName.equals(inStock.get(i).getName())){
+    public Item findFirst(String itemName) { //If you want to buy the item, you use this method to find that first item that you want
+
+        for (int i = 0; i < inStock.size(); i++) {
+            if (itemName.equals(inStock.get(i).getName())) {
                 return inStock.get(i);
             }
-            else{
-                throw new IllegalArgumentException("There is no item like that in the vending machine");
-            }
+
         }
-        Item item = new Item("asdasd", 2, 3);
-        return item;
+
+        throw new IllegalArgumentException("The vending machine does not have that item.");
     }
 
     public int getQuantity(String itemName){
@@ -61,13 +60,12 @@ public class Inventory {
         return this.size;
     }
 
-    public ArrayList<Item> dispenseItem(String name, int quantity){
+    public ArrayList<Item> dispenseItem(String name){
 
         ArrayList<Item> toBeDispensed = new ArrayList<>();
         for (int i = 0; i < inStock.size(); i++){
 
-            if (name.equals(inStock.get(i).getName()) && quantity > 0){
-                quantity -= 1;
+            if (name.equals(inStock.get(i).getName())){
                 toBeDispensed.add(inStock.get(i));
             }
         }

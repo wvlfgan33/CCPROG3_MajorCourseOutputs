@@ -40,20 +40,7 @@ public class Main {
 		// Mymoney = 200
 		// Price of item = 237
 
-		CashRegister cashRegister = new CashRegister();
-		cashRegister.addCash(Denomination.ONE_HUNDRED, 8);
-		cashRegister.addCash(Denomination.FIFTY, 4);
-		cashRegister.addCash(Denomination.TWENTY, 4);
-		cashRegister.addCash(Denomination.TEN, 4);
-		cashRegister.addCash(Denomination.FIVE, 1);
-		cashRegister.addCash(Denomination.ONE, 4);
 
-		ArrayList<Denomination> vendingMachineCash = cashRegister.getCashList();
-
-
-		ArrayList<Denomination> myMoney = new ArrayList<>();
-		myMoney.add(Denomination.ONE_THOUSAND);
-		myMoney.add(Denomination.ONE_HUNDRED);
 ////		myMoney.add(Denomination.FIFTY);
 //		ArrayList<Denomination> change = cashRegister.transact(myMoney, 150);
 //
@@ -64,43 +51,74 @@ public class Main {
 		Item item2 = new Item("Pepsi", 20.00, 139);
 		Item item3 = new Item("St. Miguel Beer", 40.00, 43);
 		Item item4 = new Item("St. Joseph Beer", 45.00, 43);
-		Item item5 = new Item("Cheetos King Size", 69.00, 160);
+		Item item5 = new Item("Cheetos", 69.00, 160);
 		Item item6 = new Item("Cheddar Pringles", 80.00, 140);
 		Item item7 = new Item("Bottled Water", 15.00, 0);
 		Item item8 = new Item("Standard Gelato", 100.00, 207);
 		Item item9 = new Item("Chocolate Syrup", 20.00, 279);
 
-		VendingMachine v = new VendingMachine();
+
+//		VendingMachine v = new VendingMachine();
 		Item[] items = {item1, item2, item3, item4, item5};
-		int[] quantites = {3, 1, 1, 1, 1};
-		Inventory inventory = new Inventory(items, quantites);
+		int[] quantities = {3, 1, 1, 1, 1};
 
+		VendingMachine v = new VendingMachine(items, quantities);
+		CashRegister cashRegister = v.getCashRegister();
+		cashRegister.addCash(Denomination.ONE_HUNDRED, 8);
+		cashRegister.addCash(Denomination.FIFTY, 4);
+		cashRegister.addCash(Denomination.TWENTY, 4);
+		cashRegister.addCash(Denomination.TEN, 4);
+		cashRegister.addCash(Denomination.FIVE, 1);
+		cashRegister.addCash(Denomination.ONE, 4);
 
-//		inventory.addItem(item1, 5);
-//		inventory.addItem(item2);
-//		inventory.addItem(item3);
-//		inventory.addItem(item4);
-//		inventory.addItem(item5);
-//		inventory.addItem(item6);
+		v.addToCart("Cheetos", 1);
+		v.addToCart("Pepsi", 1);
 
-
-		System.out.println(inventory.getUniqueItemCount());
-//		System.out.println(inventory.getQuantity("Coke"));
-//		System.out.println(inventory.findFirst("Coke").getName());
-		for (int i = 0; i < inventory.getInStock().size(); i++) {
-			System.out.println(inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice() + " | "
-					+ inventory.getInStock().get(i).getCalories());
+		for (int i = 0; i < v.getCart().size(); i++){
+			System.out.println(v.getCart().get(i).getName());
 		}
-		System.out.println("-----------------------");
-		ArrayList<Item> beast = inventory.dispenseItem("Coke", 3);
-		for (Item item : beast) {
+		System.out.println(v.getTotalCostInCart());
+
+		System.out.println("Inventory: ");
+
+		ArrayList<Item> stockList= v.getInventory().getInStock();
+		for (Item item: stockList){
 			System.out.println(item.getName());
 		}
-		System.out.println("-----------------------");
-		for (int i = 0; i < inventory.getInStock().size(); i++) {
-			System.out.println(inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice() + " | "
-					+ inventory.getInStock().get(i).getCalories());
+
+		ArrayList<Denomination> myMoney = new ArrayList<>();
+		myMoney.add(Denomination.ONE_HUNDRED);
+		System.out.println(v.payForCart(myMoney));
+
+		ArrayList<Item> currentStockList = v.getInventory().getInStock();
+		for (Item item: currentStockList){
+			System.out.println(item.getName());
 		}
+
+
+//		System.out.println(change);
+//		System.out.println(cashRegister.getCashList());
+////
+//
+//		System.out.println(inventory.getUniqueItemCount());
+
+
+//		System.out.println(inventory.getQuantity("Coke"));
+//		System.out.println(inventory.findFirst("Coke").getName());
+//		for (int i = 0; i < inventory.getInStock().size(); i++) {
+//			System.out.println(inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice() + " | "
+//					+ inventory.getInStock().get(i).getCalories());
+//		}
+//		System.out.println("-----------------------");
+//		ArrayList<Item> beast = inventory.dispenseItem("Coke", 3);
+//		for (Item item : beast) {
+//			System.out.println(item.getName());
+//		}
+//		System.out.println("-----------------------");
+//		for (int i = 0; i < inventory.getInStock().size(); i++) {
+//			System.out.println(inventory.getInStock().get(i).getName() + " | " + inventory.getInStock().get(i).getPrice() + " | "
+//					+ inventory.getInStock().get(i).getCalories());
+//		}
 
 	}
 }
