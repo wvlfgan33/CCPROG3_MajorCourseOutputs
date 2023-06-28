@@ -11,6 +11,8 @@ public class Inventory {
 
 
     public void addItem(Item item, int quantity){
+
+
         if (quantity < 0){
             throw new IllegalArgumentException("Invalid number of items! ");
         }
@@ -32,6 +34,13 @@ public class Inventory {
             }
         }
         throw new IllegalArgumentException("The vending machine does not have that item.");
+    }
+    public double getPrice(String itemName){
+        return this.findFirst(itemName).getPrice();
+    }
+
+    public double getCalories(String itemName){
+        return this.findFirst(itemName).getCalories();
     }
 
     public int getQuantity(String itemName){

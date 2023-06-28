@@ -169,13 +169,23 @@ public class VendingMachine {
 			while (maintenanceChoice != 4){
 				System.out.println("Test maintenance features of the vending machine: ");
 				System.out.println("What would you like to do?");
-				System.out.println("1. Restock/stock items or setting price of each item type\n2. Replenish/add money in the Vending Machine or collect money \n3. Print summary of transactions");
+				System.out.print("""
+						1. Restock/stock items or setting price of each item type
+						2. Replenish/add money in the Vending Machine or collect money
+						3. Print summary of transactions
+						4. Exit
+						>> """);
+				/*System.out.println("1. Restock/stock items or setting price of each item type\n" +
+								   "2. Replenish/add money in the Vending Machine or collect money " +
+						           "\n3. Print summary of transactions\n4. Exit");*/
+
 				maintenanceChoice = scanner.nextInt();
 
 				switch (maintenanceChoice){
 					case 1:
 						this.manageItems();
 						break;
+
 					case 2:
 						//this.manageMoney();
 
@@ -185,6 +195,7 @@ public class VendingMachine {
 						break;
 					case 4:
 						break;
+
 					default:
 						System.out.println("Wrong input!");
 				}
@@ -192,33 +203,52 @@ public class VendingMachine {
 
 		}
 	private void manageItems() {
+		int maintenanceChoice = -1;
+		while (maintenanceChoice != 4){
 
-		System.out.println("Manage items: ");
-		System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. Exit");
-		System.out.println("What would you like to do?");
-		int maintenanceChoice = scanner.nextInt();
+			System.out.println("Manage items: ");
+			System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. View inventory");
+			System.out.println("What would you like to do?");
+			maintenanceChoice = scanner.nextInt();
 
-		switch (maintenanceChoice){
-			case 1:
-				this.automaticProductsInsertion();
-				break;
+			switch (maintenanceChoice){
+				case 1:
+					this.automaticProductsInsertion();
+					break;
 
-			case 2:
-				this.manualProductInsertion();
-				break;
+				case 2:
+					this.manualProductInsertion();
+					break;
 
-			case 3:
-				this.restockSpecificItems();
-				break;
+				case 3:
+					this.restockSpecificItems();
+					break;
 
-			case 4:
-				break;
+				case 4:
+					this.viewInventory();
+					break;
 
-			default:
-				System.out.println("Wrong input!");
+				case 5:
+
+					break;
+
+				default:
+					System.out.println("Wrong input!");
+			}
 		}
 
 
+	}
+	private void viewInventory(){
+		ArrayList<String> inventory = this.vendingMachineService.getInventory().getUniqueItemNames();
+		System.out.println("==============================================================");
+		for (String itemName: inventory){
+			int quantity = this.vendingMachineService.getInventory().getQuantity(itemName);
+			double price = this.vendingMachineService.getInventory().getPrice(itemName);
+			double calories = this.vendingMachineService.getInventory().getCalories(itemName);
+			System.out.printf("x%s %s | P %s | Calories: %s\n", quantity, itemName, price, calories);
+		}
+		System.out.println("==============================================================");
 	}
 	private void automaticProductsInsertion(){
 		Item item1 = new Item("Coke", 20.00, 139);
@@ -248,14 +278,8 @@ public class VendingMachine {
 	}
 
 	private void manualProductInsertion(){
-		System.out.print("How many products you want to add? (Minimum of 8 products)");
+		System.out.print("How many products you want to add? (Minimum of 8 products): ");
 		int nProducts = scanner.nextInt();
-
-		if (nProducts < 8) {
-			System.out.println("Minimum of 8 products! ");
-		} else if (nProducts > 20) {
-			System.out.println("That exceeds the limit of slots! ");
-		}
 
 		for (int i = 0; i < nProducts; i++) {
 			System.out.print("Product name: ");
@@ -272,17 +296,12 @@ public class VendingMachine {
 			vendingMachineService.getInventory().addItem(item, quantity);
 		}
 	}
+
 	private void restockSpecificItems(){
 		int maintenanceChoice = -1;
 		while (maintenanceChoice != 3){
 			System.out.println("Restocking: ");
-			ArrayList<String> finalInventory = this.vendingMachineService.getInventory().getUniqueItemNames();
-
-			for (String item : finalInventory) {
-				System.out.println("Inventory: ");
-				System.out.printf("x%d %s", vendingMachineService.getInventory().getQuantity(item), item);
-
-			}
+			viewInventory();
 
 			System.out.print("Which product do you want to restock? ");
 			String itemName = scanner.nextLine();
@@ -304,6 +323,7 @@ public class VendingMachine {
 		}
 
 	}
+
 		private void addToCartMenu () {
 
 

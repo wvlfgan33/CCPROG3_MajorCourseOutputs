@@ -26,7 +26,7 @@ public class VendingMachineService { //TODO
 
 	public void begin(){
 
-		if (this.inventory.getUniqueItemCount() < 8){
+		if (this.inventory.getUniqueItemCount() <= 8){
 			throw new IllegalArgumentException("The minimum slots is not satisfied.");
 		}
 
