@@ -68,5 +68,7 @@ public class Inventory {
         return uniqueNames;
     }
 
-    public void dispenseItem(String name){ inStock.remove(name); }
+    public void dispenseItem(String name){
+        inStock.remove(findFirst(name));
+    }
 }

@@ -168,7 +168,7 @@ public class VendingMachine {
 		while (maintenanceChoice != 5){
 
 			System.out.println("Manage items: ");
-			System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. View inventory\5 Exit");
+			System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. View inventory\n5 Exit");
 			System.out.println("What would you like to do?");
 			System.out.print(">> ");
 			maintenanceChoice = scanner.nextInt();
