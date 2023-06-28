@@ -203,14 +203,38 @@ public class VendingMachine {
 
 		private void useVendingMachineAsCustomer() {
 			Scanner sc = new Scanner(System.in);
+			for (var products : this.vendingMachineService.getInventory().getUniqueItemNames()) {
+				System.out.println("- " + products);
+			}
 			System.out.println("-----------------------------");
+
 			System.out.println("What would you like to do?");
 			System.out.println("1. Add to Cart\n2. Pay and Checkout\n3. Clear Cart\n4.Abort");
 
 			while (this.choice == 11) {
 
 				int userChoice = sc.nextInt();
-
+				
+				switch (userChoice) 
+					case 1: 
+						this.choice = 12;
+						this.addToCartMenu();
+						break;
+					case 2:
+						this.choice = 13;
+						this.givePaymentAndCheckout();
+						break;
+					case 3:
+						this.vendingMachineService.clearCart();
+						continue;
+						break;
+					case 4:
+						this.choice = -1;
+						this.start();
+						break;
+					default:
+						System.out.println("Wrong input!");
+				/*
 				if (userChoice == 1) {
 					this.choice = 12;
 					this.addToCartMenu();
@@ -226,7 +250,7 @@ public class VendingMachine {
 				} else {
 					System.out.println("Wrong input!");
 
-				}
+				}*/
 			}
 
 		}
@@ -262,10 +286,7 @@ public class VendingMachine {
 
 
 			System.out.println("List of products:");
-			for (var products : this.vendingMachineService.getInventory().getUniqueItemNames()) {
-				System.out.println("- " + products);
-			}
-			System.out.println("-----------------------------");
+			
 			System.out.println("What would you like to buy? (return 'DONE' once finished adding to cart)");
 
 			while (this.choice == 12) {
@@ -319,6 +340,7 @@ public class VendingMachine {
 					this.vendingMachineService.clearCart();
 					System.out.println("-----------------------------------------------------");
 					this.choice = 11;
+					this.useVendingMachineAsCustomer();
 				}
 
 				double moneyIn = Double.valueOf(input);
@@ -330,7 +352,7 @@ public class VendingMachine {
 					continue;
 				}
 			}
-
+		
 		}
 
 	}
