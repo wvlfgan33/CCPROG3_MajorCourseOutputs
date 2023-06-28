@@ -175,9 +175,7 @@ public class VendingMachine {
 						3. Print summary of transactions
 						4. Exit
 						>> """);
-				/*System.out.println("1. Restock/stock items or setting price of each item type\n" +
-								   "2. Replenish/add money in the Vending Machine or collect money " +
-						           "\n3. Print summary of transactions\n4. Exit");*/
+				
 
 				maintenanceChoice = scanner.nextInt();
 
@@ -418,7 +416,7 @@ public class VendingMachine {
 		
 		private void printOperationSummary() {
 			for (String item : vendingMachineService.getSummary().getUniqueItemNamesInSales()) {
-				System.out.println(item + " x" + vendingMachineService.getSummary().getQuantitySold());
+				System.out.println(item + " x" + vendingMachineService.getSummary().getQuantitySold(item));
 			}
 			System.out.println("Total earnings: Php " + vendingMachineService.getSummary().computeTotalEarnings());
 		}
