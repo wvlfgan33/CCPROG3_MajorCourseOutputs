@@ -4,31 +4,16 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Inventory {
-    private ArrayList<Item> inStock;
-    private ArrayList<Item> oldInventory;
-    private int size;
-    //private Summary summary;
+    private ArrayList<Item> inStock = new ArrayList<>();
+
 	
 	private final int MAX_PER_SLOT = 20;
 
 
-    public Inventory(Item[] inStock, int[] startingQuantities) {
-        this.size = inStock.length;
-        this.inStock = new ArrayList<>();
-        this.oldInventory = new ArrayList<>();
-
-		//summary.setInitialItemLineup(inStock);
-
-        for (int i = 0; i < inStock.length; i++){
-            for (int j = 0; j < startingQuantities[i]; j++){
-                this.inStock.add(inStock[i]);
-                this.oldInventory.add(inStock[i]);
-            }
-        }
-    }
 
     public void addItem(Item item){
         inStock.add(item);
+
     }
 
     public void addItem(Item item, int quantity){
@@ -38,7 +23,6 @@ public class Inventory {
 			}
 			inStock.add(item);
         }
-
     }
 	
     public ArrayList<Item> getInStock(){ return inStock; }
@@ -49,9 +33,7 @@ public class Inventory {
             if (itemName.equals(inStock.get(i).getName())) {
                 return inStock.get(i);
             }
-
         }
-
         throw new IllegalArgumentException("The vending machine does not have that item.");
     }
 
@@ -66,7 +48,18 @@ public class Inventory {
     }
 
     public int getUniqueItemCount(){ //Counts all the products that we have in our vending machine
-        return this.size;
+        return getUniqueItemNames().size();
+    }
+
+    public ArrayList<String> getUniqueItemNames(){
+        ArrayList<String> uniqueNames = new ArrayList<>();
+        for (Item item: this.inStock){
+            String nameOfItem = item.getName();
+            if (!uniqueNames.contains(nameOfItem)){
+                uniqueNames.add(nameOfItem);
+            }
+        }
+        return uniqueNames;
     }
 
     public ArrayList<Item> dispenseItem(String name){
@@ -84,11 +77,6 @@ public class Inventory {
         }
         return toBeDispensed;
     }
-
-	public ArrayList<Item> getOldInventory() {
-		return this.oldInventory;
-	}
-
 
 
 }

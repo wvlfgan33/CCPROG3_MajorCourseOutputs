@@ -4,12 +4,9 @@ import model.Item;
 import model.CashRegister;
 import model.Summary;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class VendingMachine { //TODO
+public class VendingMachineService { //TODO
 
 	private CashRegister cashRegister;
 	private Summary summary;
@@ -17,17 +14,30 @@ public class VendingMachine { //TODO
 	private boolean isOperational = false;
 	private ArrayList<Item> cart = new ArrayList<>();
 
-	public VendingMachine(Item[] inStock, int[] quantities) {
-		this.inventory = new Inventory(inStock, quantities);
-		this.cashRegister = new CashRegister();
-		
-		this.summary = new Summary();
-		
-		this.isOperational = true;
-		this.cart = new ArrayList<>();
-		
-		summary.setInitialItemLineup(inStock);
 
+
+	public VendingMachineService() {
+		this.inventory = new Inventory();
+		this.cashRegister = new CashRegister();
+		this.summary = new Summary(this.inventory);
+		this.cart = new ArrayList<>();
+
+	}
+
+	public void begin(){
+
+		if (this.inventory.getUniqueItemCount() < 8){
+			throw new IllegalArgumentException("The minimum slots is not satisfied.");
+		}
+
+		for (String itemName: inventory.getUniqueItemNames()){
+			if (inventory.getQuantity(itemName) < 10){
+				throw new IllegalArgumentException("The minimum quantity per item requirement is not satisfied.");
+			}
+		}
+
+		isOperational = true;
+		summary.setInitialInventory(this.inventory.getInStock());
 	}
 
 	public Inventory getInventory(){ return inventory; }
@@ -59,6 +69,7 @@ public class VendingMachine { //TODO
 
 
 	public ArrayList<Denomination> payForCart(ArrayList<Denomination> payment){
+
 		ArrayList<Item> cart = this.getCart();
 		double priceOfCart = this.getTotalCostInCart();
 		ArrayList<Denomination> changeList = this.cashRegister.transact(payment, priceOfCart);
@@ -67,22 +78,13 @@ public class VendingMachine { //TODO
 		}
 		
 		summary.recordSales(cart);
-		summary.addEarnings(priceOfCart);
-		
-		
-		summary.generateReceipt(cart, priceOfCart);
 		
 		return changeList;
 	}
 
-	public String getReceipt() {
-		return summary.getReceipt();
-	}
 	
-	public String getSummaryOfOperations() {
-		String output = summary.getSummaryOfOperations();
-		return output;
-	}
+
+
 
 
 
