@@ -94,7 +94,7 @@ public class VendingMachine {
 					useVendingMachineAsModerator();
 					break;
 				case 3:
-					//exit
+					//Exit
 					break;
 				default:
 					System.out.println("Wrong input! ");
@@ -142,24 +142,6 @@ public class VendingMachine {
 					default:
 						System.out.println("Wrong input!");
 				}
-
-				/*
-				if (userChoice == 1) {
-					this.choice = 12;
-					this.addToCartMenu();
-				} else if (userChoice == 2) {
-					this.choice = 13;
-					this.givePaymentAndCheckout();
-				} else if (userChoice == 3) {
-					this.vendingMachineService.clearCart();
-					continue;
-				} else if (userChoice == 4) {
-					this.choice = -1;
-					this.start();
-				} else {
-					System.out.println("Wrong input!");
-
-				}*/
 			}
 
 		}
@@ -189,7 +171,7 @@ public class VendingMachine {
 
 						break;
 					case 3:
-						//this.printSummaryOfTransactions();
+						this.printOperationSummary();
 						break;
 					case 4:
 						break;
@@ -281,16 +263,20 @@ public class VendingMachine {
 
 		for (int i = 0; i < nProducts; i++) {
 			System.out.print("Product name: ");
-			String name = scanner.nextLine();
+
 			scanner.nextLine();
+			String name = scanner.nextLine();
+
 			System.out.print("Price: ");
 			double price = scanner.nextDouble();
 			System.out.print("Calories: ");
+
 			double calories = scanner.nextDouble();
 			Item item = new Item(name, price, calories);
 
 			System.out.print("Quantity: ");
 			int quantity = scanner.nextInt();
+
 			vendingMachineService.getInventory().addItem(item, quantity);
 		}
 	}
@@ -358,13 +344,11 @@ public class VendingMachine {
 			ArrayList<Denomination> change = new ArrayList<>();
 
 			while (this.choice == 13) {
-				Scanner sc = new Scanner(System.in);
 
 				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input 'DONE' if done.");
-				String input = sc.nextLine();
+				String input = scanner.nextLine();
 
-				if (input.equals("DONE")) {
-					sc.close();
+				if (input.toUpperCase().equals("DONE")) {
 					change = this.vendingMachineService.payForCart(thePayment);
 
 					System.out.println("-----------------------------------------------------");
@@ -382,9 +366,8 @@ public class VendingMachine {
 					this.choice = 11;
 					this.useVendingMachineAsCustomer();
 				}
-
-				double moneyIn = Double.valueOf(input);
 				try {
+				double moneyIn = Double.valueOf(input);
 					thePayment.add(Denomination.of(moneyIn));
 					continue;
 				} catch (Exception e) {
@@ -393,6 +376,36 @@ public class VendingMachine {
 				}
 			}
 		
+		}
+
+		private void manageMoney(){
+			int maintenanceChoice = -1;
+			while (maintenanceChoice != 4){
+				System.out.println("Manage money: ");
+				System.out.println("1. Automatic replenishment of cash supply\n2. Manual replenishment of cash supply.\n3. Collect all money.\n4. Exit");
+				System.out.println("What would you like to do?");
+				maintenanceChoice = scanner.nextInt();
+
+				switch (maintenanceChoice){
+					case 1:
+						this.replenishCashSupply();
+						break;
+
+					case 2:
+						this.addCashToSupplyManually();
+						break;
+
+					case 3:
+						this.vendingMachineService.getCashRegister().collectAllCash();
+						break;
+
+					case 4:
+						break;
+
+					default:
+						System.out.println("Wrong input!");
+				}
+			}
 		}
 		
 		private void replenishCashSupply() { //or you can have this set the number of each denomination to be some number.
@@ -405,14 +418,45 @@ public class VendingMachine {
 			}
 			this.vendingMachineService.getCashRegister().setCashList(cashListToBeReplenished);
 		}
-		
-		private void addCashToSupply(Denomination denom, int quantity) {
-			ArrayList<Denomination> cashListToBeAdded = this.vendingMachineService.getCashRegister().getCashList();
-			for (int i = 0; i < quantity; i++) {
-				cashListToBeAdded.add(denom);
+
+
+	private void addCashToSupplyManually() {
+
+			Denomination billToBeInserted = null;
+			int maintenanceChoice = -1;
+			while (maintenanceChoice != 2) {
+				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input '3' if done.");
+				double denomInput = scanner.nextDouble();
+				System.out.print("Quantity: ");
+				int quantity = scanner.nextInt();
+
+				try {
+					billToBeInserted = Denomination.of(denomInput);
+					addCashToSupply(billToBeInserted, quantity);
+				} catch (Exception e){
+					System.out.println("Invalid input!");
+					continue;
+				}
+				System.out.println("Do you want to add more (Yes/No)? ");
+				String choice = scanner.nextLine();
+				scanner.next();
+
+				if (choice.toUpperCase().equals("YES")){
+					maintenanceChoice = 2;
+				}
+
 			}
-			this.vendingMachineService.getCashRegister().setCashList(cashListToBeAdded);
 		}
+		private void addCashToSupply(Denomination denom, int quantity) {
+
+
+
+				ArrayList<Denomination> cashListToBeAdded = this.vendingMachineService.getCashRegister().getCashList();
+				for (int i = 0; i < quantity; i++) {
+					cashListToBeAdded.add(denom);
+				}
+				this.vendingMachineService.getCashRegister().setCashList(cashListToBeAdded);
+			}
 		
 		private void printOperationSummary() {
 			for (String item : vendingMachineService.getSummary().getUniqueItemNamesInSales()) {
