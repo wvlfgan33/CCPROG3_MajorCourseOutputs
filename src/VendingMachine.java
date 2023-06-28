@@ -35,20 +35,24 @@ public class VendingMachine {
 			System.out.print("Enter 1, 2, or 3: ");
 
 			choice = scanner.nextInt();
+			switch(choice){
+				case 1:
+					this.choice = 1;
+					this.vendingMachineService = new VendingMachineService();
+					break;
 
-			if (choice == 1) { // 1. Create a vending machine
-				this.choice = 1;
-				this.vendingMachineService = new VendingMachineService();
+				case 2:
+					this.testVendingMachine();
+					break;
 
-			} else if (choice == 2) { // 2. Test a vending machine
-				this.testVendingMachine();
+				case 3:
+					scanner.close();
+					break;
 
-			} else if (choice == 3) { // 3. Exit
-				scanner.close();
-
-			} else {
-				System.out.println("Wrong input!");
+				default:
+					System.out.println("Wrong input!");
 			}
+
 
 		}
 	}
@@ -75,52 +79,37 @@ public class VendingMachine {
 
 	private void testVendingMachine() {
 
-		System.out.println("Test the vending machine: ");
-		System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Exit");
-		int choice1 = scanner.nextInt();
-		while (choice1 == 1) { //1. Test a vending machine.
-			int userChoice = scanner.nextInt();
-			System.out.println("Test the vending machine:");
-			System.out.println("What would you like to do?");
-			System.out.println("1. Use vending machine\n2. Add items to cart\n3. Proceed to checkout");
+		int choice = -1;
+		while (choice != 3){
+			System.out.println("Test the vending machine: ");
+			System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Exit");
+			choice = scanner.nextInt();
 
-
-			if (userChoice == 1) {
-				this.useVendingMachineAsCustomer();
-			} else if (userChoice == 2) {
-				this.addToCartMenu();
-			} else if (userChoice == 3) {
-				this.givePaymentAndCheckout();
-				choice1 = 4;
-
+			switch (choice){
+				case 1:
+					//testvendingmachine features
+					useVendingMachineAsCustomer();
+					break;
+				case 2:
+					//testmaintenance features
+					useVendingMachineAsModerator();
+					break;
+				case 3:
+					//exit
+					break;
+				default:
+					System.out.println("Wrong input! ");
 			}
 		}
 
-		while (choice1 == 2) { //2. Test maintenance features.
 
-			System.out.println("Test maintenance features of the vending machine: ");
-			System.out.println("What would you like to do?");
-			System.out.println("1. Restock/stock items or setting price of each item type\n2. Replenish/add money in the Vending Machine or collect money \n3. Print summary of transactions");
-			int maintenanceChoice = scanner.nextInt();
 
-			if (maintenanceChoice == 1) {
-				this.manageItems();
-			}
 
-			else if(maintenanceChoice == 2){
-				//this.manageMoney();
-			}
-
-			else if (maintenanceChoice == 3){
-				//this.printSummaryOfTransactions();
-			}
-		}
 	}
 
 	private void manageItems() {
 
 		int maintenanceChoice1 = scanner.nextInt();
-		while ()
 		System.out.println("Manage items: ");
 		System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. Exit");
 		System.out.println("What would you like to do?");
@@ -140,17 +129,17 @@ public class VendingMachine {
 			Item item10 = new Item("Dark chocolate", 50.00, 100);
 			Item item11 = new Item("White chocolate", 50, 250);
 
-			vendingMachineService.getInventory().addItem(item1, 20);
-			vendingMachineService.getInventory().addItem(item2, 20);
-			vendingMachineService.getInventory().addItem(item3, 20);
-			vendingMachineService.getInventory().addItem(item4, 20);
-			vendingMachineService.getInventory().addItem(item5, 20);
-			vendingMachineService.getInventory().addItem(item6, 20);
-			vendingMachineService.getInventory().addItem(item7, 20);
-			vendingMachineService.getInventory().addItem(item8, 20);
-			vendingMachineService.getInventory().addItem(item9, 20);
-			vendingMachineService.getInventory().addItem(item10, 20);
-			vendingMachineService.getInventory().addItem(item11, 20);
+			vendingMachineService.getInventory().addItem(item1, 5);
+			vendingMachineService.getInventory().addItem(item2, 5);
+			vendingMachineService.getInventory().addItem(item3, 5);
+			vendingMachineService.getInventory().addItem(item4, 5);
+			vendingMachineService.getInventory().addItem(item5, 5);
+			vendingMachineService.getInventory().addItem(item6, 5);
+			vendingMachineService.getInventory().addItem(item7, 5);
+			vendingMachineService.getInventory().addItem(item8, 5);
+			vendingMachineService.getInventory().addItem(item9, 5);
+			vendingMachineService.getInventory().addItem(item10, 5);
+			vendingMachineService.getInventory().addItem(item11, 5);
 
 		}
 
@@ -242,6 +231,33 @@ public class VendingMachine {
 
 		}
 
+		private void useVendingMachineAsModerator(){
+			int maintenanceChoice = -1;
+			while (maintenanceChoice != 4){
+				System.out.println("Test maintenance features of the vending machine: ");
+				System.out.println("What would you like to do?");
+				System.out.println("1. Restock/stock items or setting price of each item type\n2. Replenish/add money in the Vending Machine or collect money \n3. Print summary of transactions");
+				maintenanceChoice = scanner.nextInt();
+
+				switch (maintenanceChoice){
+					case 1:
+						this.manageItems();
+						break;
+					case 2:
+						//this.manageMoney();
+
+						break;
+					case 3:
+						//this.printSummaryOfTransactions();
+						break;
+					case 4:
+						break;
+					default:
+						System.out.println("Wrong input!");
+				}
+			}
+
+		}
 		private void addToCartMenu () {
 
 
