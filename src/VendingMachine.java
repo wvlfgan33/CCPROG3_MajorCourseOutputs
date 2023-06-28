@@ -288,8 +288,8 @@ public class VendingMachine {
 			viewInventory();
 
 			System.out.print("Which product do you want to restock? ");
+			scanner.nextLine();
 			String itemName = scanner.nextLine();
-			scanner.next();
 			Item item = this.vendingMachineService.getInventory().findFirst(itemName);
 
 			System.out.print("Quantity: ");

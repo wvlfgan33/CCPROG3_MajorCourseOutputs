@@ -10,7 +10,8 @@ public class Main {
 		vendingMachine.start();
 
 //
-//		Item item1 = new Item("Coke", 20.00, 139);
+
+
 //		Item item2 = new Item("Pepsi", 20.00, 139);
 //		Item item3 = new Item("St. Miguel Beer", 40.00, 43);
 //		Item item4 = new Item("St. Joseph Beer", 45.00, 43);
