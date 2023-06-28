@@ -6,17 +6,14 @@ import java.util.ArrayList;
 public class Inventory {
     private ArrayList<Item> inStock = new ArrayList<>();
 
-	
+
 	private final int MAX_PER_SLOT = 20;
 
 
-
-    public void addItem(Item item){
-        inStock.add(item);
-
-    }
-
     public void addItem(Item item, int quantity){
+        if (quantity < 0){
+            throw new IllegalArgumentException("Invalid number of items! ");
+        }
         for (int i = 0; i < quantity; i++){
             if (this.getQuantity(item.getName()) >= MAX_PER_SLOT) {
 				break;

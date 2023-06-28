@@ -43,6 +43,8 @@ public class VendingMachineService { //TODO
 	public Inventory getInventory(){ return inventory; }
 	public CashRegister getCashRegister(){ return cashRegister; }
 
+	public Summary getSummary(){ return summary; }
+
 	public void addToCart(String name, int quantity){
 		Item item = inventory.findFirst(name);
 
