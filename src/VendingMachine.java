@@ -376,5 +376,12 @@ public class VendingMachine {
 			}
 		
 		}
+		
+		private void printOperationSummary() {
+			for (String item : vendingMachineService.getSummary().getUniqueItemNamesInSales()) {
+				System.out.println(item + " x" + vendingMachineService.getSummary().getQuantitySold());
+			}
+			System.out.println("Total earnings: Php " + vendingMachineService.getSummary().computeTotalEarnings());
+		}
 
 	}
