@@ -68,21 +68,5 @@ public class Inventory {
         return uniqueNames;
     }
 
-    public ArrayList<Item> dispenseItem(String name){
-
-        ArrayList<Item> toBeDispensed = new ArrayList<>();
-        for (int i = 0; i < inStock.size(); i++){
-
-            if (name.equals(inStock.get(i).getName())){
-                toBeDispensed.add(inStock.get(i));
-            }
-        }
-
-        for (int i = 0; i < toBeDispensed.size(); i++){
-            inStock.remove(toBeDispensed.get(i));
-        }
-        return toBeDispensed;
-    }
-
-
+    public void dispenseItem(String name){ inStock.remove(name); }
 }

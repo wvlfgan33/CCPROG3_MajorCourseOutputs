@@ -40,6 +40,8 @@ public class VendingMachineService { //TODO
 		summary.setInitialInventory(this.inventory.getInStock());
 	}
 
+	public boolean getIsOperational(){ return isOperational; }
+
 	public Inventory getInventory(){ return inventory; }
 	public CashRegister getCashRegister(){ return cashRegister; }
 

@@ -8,22 +8,7 @@ public class VendingMachine {
 	private VendingMachineService vendingMachineService;
 	private int choice = -1;
 
-	/*
-		Scene -1: Starting screen
-		
-		Scene 1: Start up Vending Machine
-			Scene 11: Using vending machine as a customer
-			Scene 12: Adding items to cart
-			Scene 13: Giving payment
-			
-		Scene 2: Vending Machine management/setup -- Admin things
-		    scene 14: Test vending features
-		    scene 15: Test maintenance features
-		    scene 16: exit test of a vending machine and goes back to the main menu
-		
-		Scene 3: Terminate Program
-		
-	*/
+
 	public void start() {
 		System.out.println("[CCPROG3 Vending Machine]");
 
@@ -34,82 +19,75 @@ public class VendingMachine {
 			System.out.print(">> ");
 
 			choice = scanner.nextInt();
-			switch(choice){
-				case 1:
-					this.choice = 1;
-					this.vendingMachineService = new VendingMachineService();
-					break;
 
-				case 2:
-					this.choice = 2;
-					this.testVendingMachine();
-					break;
 
-				case 3:
-					scanner.close();
-					break;
+				switch(choice){
+					case 1:
+						this.choice = 1;
+						this.vendingMachineService = new VendingMachineService();
+						break;
 
-				default:
-					System.out.println("Wrong input!");
-			}
+					case 2:
+						this.choice = 2;
+						this.testVendingMachine();
+						break;
+
+					case 3:
+						scanner.close();
+						break;
+
+					default:
+						System.out.println("Wrong input!");
+				}
 
 
 		}
 	}
-
-	// Scenes
-//    private void createVendingMachine(){
-
-//		while (this.choice == 1) {
-//			try {
-//				this.vendingMachineService.begin();
-//				this.choice = 11;
-//                this.useVendingMachineAsCustomer();
-//
-//			} catch (Exception e) {
-//				System.out.println("Failed to start Vending Machine!");
-//				System.out.println(e);
-//				this.choice = -1;
-//				this.start();
-//			}
-//		}
-
-//    }
-
 
 	private void testVendingMachine() {
 
 		int choice = -1;
-		while (choice != 3){
+		while (choice != 4){
 			System.out.println("Test the vending machine: ");
-			System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Exit");
+			System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Open the vending machine to public\n4. Exit");
 			System.out.print(">> ");
 			choice = scanner.nextInt();
+			try{
+				switch (choice){
+					case 1:
+						//testvendingmachine features
+						useVendingMachineAsCustomer();
+						break;
 
-			switch (choice){
-				case 1:
-					//testvendingmachine features
-					this.choice = 11;
-					useVendingMachineAsCustomer();
-					break;
-				case 2:
-					//testmaintenance features
-					useVendingMachineAsModerator();
-					break;
-				case 3:
-					//Exit
-					break;
-				default:
-					System.out.println("Wrong input! ");
+					case 2:
+						//testmaintenance features
+						useVendingMachineAsModerator();
+						break;
+
+					case 3:
+						vendingMachineService.begin();
+						break;
+
+					case 4:
+						//Exit
+						break;
+					default:
+						System.out.println("Wrong input! ");
+				}
+
+			}catch (IllegalArgumentException e){
+				System.out.println(e.getMessage());
 			}
+
 		}
 
 	}
 
-
-
 		private void useVendingMachineAsCustomer() {
-			//Scanner sc = new Scanner(System.in);
+			if (!this.vendingMachineService.getIsOperational()){
+				throw new IllegalArgumentException("Machine is not operational yet. ");
+			}
+
 			this.viewInventory();
 
 			int userChoice = -1;
@@ -146,9 +124,8 @@ public class VendingMachine {
 			}
 
 		}
-
-
 		private void useVendingMachineAsModerator(){
+
 			int maintenanceChoice = -1;
 			while (maintenanceChoice != 4){
 				System.out.println("Test maintenance features of the vending machine: ");
@@ -351,48 +328,6 @@ public class VendingMachine {
 			}
 			System.out.println("Total cost in cart: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()));
 		}
-		/*
-		private void givePaymentAndCheckout () {
-			ArrayList<Denomination> thePayment = new ArrayList<>();
-			ArrayList<Denomination> change = new ArrayList<>();
-
-			while (this.choice == 13) {
-
-				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input 'DONE' if done.");
-				System.out.print(">> ");
-				scanner.nextLine();
-				String input = scanner.nextLine();
-
-				if (input.toUpperCase().equals("DONE")) {
-					change = this.vendingMachineService.payForCart(thePayment);
-
-					System.out.println("-----------------------------------------------------");
-					System.out.println("Items bought:");
-					for (var itemsInCart : vendingMachineService.getCart()) {
-						System.out.println("- " + itemsInCart.getName());
-					}
-					System.out.println("Total cost: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()));
-					System.out.println("Change: ");
-					for (var d : change) {
-						System.out.print(d.name() + " ");
-					}
-					this.vendingMachineService.clearCart();
-					System.out.println("-----------------------------------------------------");
-					this.choice = 11;
-					this.useVendingMachineAsCustomer();
-				}
-				try {
-				double moneyIn = Double.valueOf(input);
-					thePayment.add(Denomination.of(moneyIn));
-
-				} catch (Exception e) {
-					System.out.println("Invalid input!");
-
-				}
-			}
-		
-		}*/
-		
 		private ArrayList<Denomination> makePayment() {
 			ArrayList<Denomination> thePayment = new ArrayList<>();
 			int userChoice = -1;
