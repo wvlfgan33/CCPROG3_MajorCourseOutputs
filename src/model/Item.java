@@ -16,7 +16,7 @@ public class Item {
     public String getName(){return name;}
     public double getPrice(){return price;}
     public double getCalories() { return calories; }
-    public ArrayList<Sale> getSales() { return sales; }
+
 
     // Setter for price to allow changes in pricing
     public void setPrice(double price) {
