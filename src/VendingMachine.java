@@ -41,6 +41,7 @@ public class VendingMachine {
 					break;
 
 				case 2:
+					this.choice = 2;
 					this.testVendingMachine();
 					break;
 
@@ -79,7 +80,7 @@ public class VendingMachine {
 	private void testVendingMachine() {
 
 		int choice = -1;
-		while (choice != 3){
+		while (this.choice == 2 && choice != 3){
 			System.out.println("Test the vending machine: ");
 			System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Exit");
 			System.out.print(">> ");
@@ -88,6 +89,7 @@ public class VendingMachine {
 			switch (choice){
 				case 1:
 					//testvendingmachine features
+					this.choice = 11;
 					useVendingMachineAsCustomer();
 					break;
 				case 2:
@@ -107,7 +109,7 @@ public class VendingMachine {
 
 
 		private void useVendingMachineAsCustomer() {
-			Scanner sc = new Scanner(System.in);
+			//Scanner sc = new Scanner(System.in);
 			for (var products : this.vendingMachineService.getInventory().getUniqueItemNames()) {
 				System.out.println("- " + products);
 			}
@@ -118,7 +120,7 @@ public class VendingMachine {
 
 			while (this.choice == 11) {
 
-				int userChoice = sc.nextInt();
+				int userChoice = scanner.nextInt();
 				
 				switch (userChoice) {
 					case 1:
@@ -136,12 +138,15 @@ public class VendingMachine {
 						break;
 
 					case 4:
-						this.choice = -1;
-						this.start();
+						this.choice = 2;
+						this.testVendingMachine();
 						break;
 
 					default:
 						System.out.println("Wrong input!");
+						this.choice = 2;
+						this.testVendingMachine();
+						break;
 				}
 			}
 
@@ -323,10 +328,15 @@ public class VendingMachine {
 			System.out.println("What would you like to buy? (return 'DONE' once finished adding to cart)");
 
 			while (this.choice == 12) {
-				Scanner sc = new Scanner(System.in);
-				String desiredItem = sc.nextLine();
+				
+				//scanner.nextLine();
+				String desiredItem = scanner.next();
+				
+				
 				System.out.println("How many?");
-				int quantity = sc.nextInt();
+				int quantity = scanner.nextInt();
+				
+				
 				if (this.vendingMachineService.getInventory().getUniqueItemNames().contains(desiredItem)) {
 					try {
 						this.vendingMachineService.addToCart(desiredItem, quantity);
@@ -338,7 +348,7 @@ public class VendingMachine {
 					if (desiredItem != "DONE") {
 						System.out.println("Wrong input!");
 					}
-					sc.close();
+					
 					this.choice = 11;
 				}
 			}
@@ -436,6 +446,12 @@ public class VendingMachine {
 			while (maintenanceChoice != 2) {
 				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input '3' if done.");
 				double denomInput = scanner.nextDouble();
+				
+				if (denomInput == 3) {
+					maintenanceChoice = 2;
+					break;
+				}
+				
 				System.out.print("Quantity: ");
 				int quantity = scanner.nextInt();
 
