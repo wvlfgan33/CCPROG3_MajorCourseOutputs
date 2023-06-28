@@ -377,6 +377,25 @@ public class VendingMachine {
 		
 		}
 		
+		private void replenishCashSupply() { //or you can have this set the number of each denomination to be some number.
+			int addition = 15;
+			ArrayList<Denomination> cashListToBeReplenished = this.vendingMachineService.getCashRegister().getCashList();
+			for (Denomination de : Denominations.values()) {
+				for (int i = 0; i < addition; i++) {
+					cashListToBeReplenished.add(de);
+				}
+			}
+			this.vendingMachineService.getCashRegister().setCashList(cashListToBeReplenished);
+		}
+		
+		private void addCashToSupply(Denomination denom, int quantity) {
+			ArrayList<Denomination> cashListToBeAdded = this.vendingMachineService.getCashRegister().getCashList();
+			for (int i = 0; i < quantity; i++) {
+				cashListToBeAdded.add(denom);
+			}
+			this.vendingMachineService.getCashRegister().setCashList(cashListToBeAdded);
+		}
+		
 		private void printOperationSummary() {
 			for (String item : vendingMachineService.getSummary().getUniqueItemNamesInSales()) {
 				System.out.println(item + " x" + vendingMachineService.getSummary().getQuantitySold());
