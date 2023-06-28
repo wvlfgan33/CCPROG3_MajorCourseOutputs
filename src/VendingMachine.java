@@ -119,25 +119,30 @@ public class VendingMachine {
 
 				int userChoice = sc.nextInt();
 				
-				switch (userChoice) 
-					case 1: 
+				switch (userChoice) {
+					case 1:
 						this.choice = 12;
 						this.addToCartMenu();
 						break;
+
 					case 2:
 						this.choice = 13;
 						this.givePaymentAndCheckout();
 						break;
+
 					case 3:
 						this.vendingMachineService.clearCart();
-						continue;
 						break;
+
 					case 4:
 						this.choice = -1;
 						this.start();
 						break;
+
 					default:
 						System.out.println("Wrong input!");
+				}
+
 				/*
 				if (userChoice == 1) {
 					this.choice = 12;
