@@ -202,7 +202,7 @@ public class VendingMachine {
 			}
 
 		}
-	private void manageItems() {
+		private void manageItems() {
 		int maintenanceChoice = -1;
 		while (maintenanceChoice != 4){
 
@@ -239,7 +239,7 @@ public class VendingMachine {
 
 
 	}
-	private void viewInventory(){
+		private void viewInventory(){
 		ArrayList<String> inventory = this.vendingMachineService.getInventory().getUniqueItemNames();
 		System.out.println("==============================================================");
 		for (String itemName: inventory){
@@ -250,7 +250,7 @@ public class VendingMachine {
 		}
 		System.out.println("==============================================================");
 	}
-	private void automaticProductsInsertion(){
+		private void automaticProductsInsertion(){
 		Item item1 = new Item("Coke", 20.00, 139);
 		Item item2 = new Item("Pepsi", 20.00, 139);
 		Item item3 = new Item("St. Miguel Beer", 40.00, 43);
@@ -277,7 +277,7 @@ public class VendingMachine {
 
 	}
 
-	private void manualProductInsertion(){
+		private void manualProductInsertion(){
 		System.out.print("How many products you want to add? (Minimum of 8 products): ");
 		int nProducts = scanner.nextInt();
 
@@ -297,7 +297,7 @@ public class VendingMachine {
 		}
 	}
 
-	private void restockSpecificItems(){
+		private void restockSpecificItems(){
 		int maintenanceChoice = -1;
 		while (maintenanceChoice != 3){
 			System.out.println("Restocking: ");
@@ -400,7 +400,7 @@ public class VendingMachine {
 		private void replenishCashSupply() { //or you can have this set the number of each denomination to be some number.
 			int addition = 15;
 			ArrayList<Denomination> cashListToBeReplenished = this.vendingMachineService.getCashRegister().getCashList();
-			for (Denomination de : Denominations.values()) {
+			for (Denomination de : Denomination.values()) {
 				for (int i = 0; i < addition; i++) {
 					cashListToBeReplenished.add(de);
 				}
