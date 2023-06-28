@@ -125,7 +125,9 @@ public class VendingMachine {
 						break;
 
 					case 2:
-						this.givePaymentAndCheckout();
+						//this.givePaymentAndCheckout();
+						ArrayList<Denomination> payment = this.makePayment();
+						this.checkout(payment);
 						break;
 
 					case 3:
@@ -349,7 +351,7 @@ public class VendingMachine {
 			}
 			System.out.println("Total cost in cart: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()));
 		}
-
+		/*
 		private void givePaymentAndCheckout () {
 			ArrayList<Denomination> thePayment = new ArrayList<>();
 			ArrayList<Denomination> change = new ArrayList<>();
@@ -389,6 +391,49 @@ public class VendingMachine {
 				}
 			}
 		
+		}*/
+		
+		private ArrayList<Denomination> makePayment() {
+			ArrayList<Denomination> thePayment = new ArrayList<>();
+			int userChoice = -1;
+			String input = "";
+			scanner.nextLine();	
+			while (userChoice != 1) {
+				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input 'DONE' if done.");
+				System.out.print(">> ");
+				
+				input = scanner.nextLine();
+				
+				try {
+					double moneyIn = Double.valueOf(input);
+					thePayment.add(Denomination.of(moneyIn));
+				} catch (Exception e) {
+					if (!input.equals("DONE")) {
+						System.out.println("Wrong input!");
+					} else {
+						userChoice = 1;
+					}
+						
+				}					
+			}
+			return thePayment;
+		}
+		
+		private void checkout(ArrayList<Denomination> thePayment) {
+			ArrayList<Denomination> change = this.vendingMachineService.payForCart(thePayment);
+
+			System.out.println("-----------------------------------------------------");
+			System.out.println("Items bought:");
+			for (var itemsInCart : vendingMachineService.getCart()) {
+				System.out.println("- " + itemsInCart.getName());
+			}
+			System.out.println("Total cost: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()));
+			System.out.println("Change: ");
+			for (var d : change) {
+				System.out.print(d.name() + " ");
+			}
+			this.vendingMachineService.clearCart();
+			System.out.println("\n-----------------------------------------------------");
 		}
 
 		private void manageMoney(){
