@@ -21,6 +21,11 @@ public class CashRegister {
 	public void setCashList(ArrayList<Denomination> newCashList) {
 		this.cashList = newCashList;
 	}
+	
+	public void collectAllCash() {
+		this.cashList = new ArrayList<>();
+	}
+	
 
 	public ArrayList<Denomination> transact(ArrayList<Denomination> payment, double priceOfItem){
 		double totalPayment = 0;

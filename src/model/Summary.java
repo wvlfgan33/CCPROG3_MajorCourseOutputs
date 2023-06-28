@@ -22,7 +22,7 @@ public class Summary {
         this.initialInventory = new ArrayList<>();
 		this.initialInventory.addAll(inStock);
     }
-	public ArrayList<Item> getFinalInventory(){
+	public ArrayList<Item> getCurrentInventory(){
 		ArrayList<Item> finalInventory = new ArrayList<>();
 		finalInventory.addAll(this.inventory.getInStock());
 		return finalInventory;

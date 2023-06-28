@@ -418,7 +418,15 @@ public class VendingMachine {
 			for (String item : vendingMachineService.getSummary().getUniqueItemNamesInSales()) {
 				System.out.println(item + " x" + vendingMachineService.getSummary().getQuantitySold(item));
 			}
-			System.out.println("Total earnings: Php " + vendingMachineService.getSummary().computeTotalEarnings());
+			System.out.println("Total Earnings: Php " + this.vendingMachineService.getSummary().computeTotalEarnings());
+			
+			System.out.println("===============================================");
+			System.out.println("Starting Inventory:\n");
+			for (Item item : this.vendingMachineService.getSummary().getInitialInventory()) {
+				System.out.println(item.getName());
+			}
+			System.out.println("Current Inventory:\n");
+			this.viewInventory();
 		}
 
 	}
