@@ -6,7 +6,6 @@ public class Item {
     private String name;
     private double price;
     private double calories;
-    private ArrayList<Sale> sales;
 
     public Item(String name, double price, double calories) {
         this.name = name;

@@ -17,4 +17,18 @@ public enum Denomination {
     }
 
     public double getValue(){ return value; }
+		
+		
+	public static Denomination of(double rawDouble) {
+		Denomination[] allPossibleDenominations = Denomination.values();
+
+		for (var possibleDenomination : allPossibleDenominations) {
+			if (possibleDenomination.value == rawDouble) {
+				return possibleDenomination;
+			}
+	
+		}
+
+		throw new IllegalArgumentException("Invalid denomination");
+	}
 }
