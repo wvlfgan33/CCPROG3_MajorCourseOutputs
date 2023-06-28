@@ -25,7 +25,7 @@ public class VendingMachine {
 		
 	*/
 	public void start() {
-		System.out.println("CCPROG3 Vending Machine");
+		System.out.println("[CCPROG3 Vending Machine]");
 
 		while (choice != 3) {
 
@@ -82,6 +82,7 @@ public class VendingMachine {
 		while (choice != 3){
 			System.out.println("Test the vending machine: ");
 			System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Exit");
+			System.out.print(">> ");
 			choice = scanner.nextInt();
 
 			switch (choice){
@@ -157,6 +158,7 @@ public class VendingMachine {
 						3. Print summary of transactions
 						4. Exit
 						>> """);
+				System.out.print(">> ");
 				
 
 				maintenanceChoice = scanner.nextInt();
@@ -167,7 +169,7 @@ public class VendingMachine {
 						break;
 
 					case 2:
-						//this.manageMoney();
+						this.manageMoney();
 
 						break;
 					case 3:
@@ -189,6 +191,7 @@ public class VendingMachine {
 			System.out.println("Manage items: ");
 			System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. View inventory");
 			System.out.println("What would you like to do?");
+			System.out.print(">> ");
 			maintenanceChoice = scanner.nextInt();
 
 			switch (maintenanceChoice){
@@ -259,6 +262,7 @@ public class VendingMachine {
 
 		private void manualProductInsertion(){
 		System.out.print("How many products you want to add? (Minimum of 8 products): ");
+		System.out.print(">> ");
 		int nProducts = scanner.nextInt();
 
 		for (int i = 0; i < nProducts; i++) {
@@ -288,6 +292,7 @@ public class VendingMachine {
 			viewInventory();
 
 			System.out.print("Which product do you want to restock? ");
+			System.out.print(">> ");
 			scanner.nextLine();
 			String itemName = scanner.nextLine();
 			Item item = this.vendingMachineService.getInventory().findFirst(itemName);
@@ -298,6 +303,8 @@ public class VendingMachine {
 			this.vendingMachineService.getInventory().addItem(item, quantity);
 
 			System.out.print("Do you want to add more quantity (Yes/No)? ");
+			System.out.print(">> ");
+			scanner.nextLine();
 			String choice = scanner.nextLine();
 			scanner.next();
 
@@ -346,6 +353,8 @@ public class VendingMachine {
 			while (this.choice == 13) {
 
 				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input 'DONE' if done.");
+				System.out.print(">> ");
+				scanner.nextLine();
 				String input = scanner.nextLine();
 
 				if (input.toUpperCase().equals("DONE")) {
@@ -438,6 +447,7 @@ public class VendingMachine {
 					continue;
 				}
 				System.out.println("Do you want to add more (Yes/No)? ");
+				scanner.nextLine();
 				String choice = scanner.nextLine();
 				scanner.next();
 
@@ -448,9 +458,6 @@ public class VendingMachine {
 			}
 		}
 		private void addCashToSupply(Denomination denom, int quantity) {
-
-
-
 				ArrayList<Denomination> cashListToBeAdded = this.vendingMachineService.getCashRegister().getCashList();
 				for (int i = 0; i < quantity; i++) {
 					cashListToBeAdded.add(denom);
