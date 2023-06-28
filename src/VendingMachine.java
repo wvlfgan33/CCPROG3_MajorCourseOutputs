@@ -80,7 +80,7 @@ public class VendingMachine {
 	private void testVendingMachine() {
 
 		int choice = -1;
-		while (this.choice == 2 && choice != 3){
+		while (choice != 3){
 			System.out.println("Test the vending machine: ");
 			System.out.println("1. Test the vending features.\n2. Test the maintenance features.\n3. Exit");
 			System.out.print(">> ");
@@ -110,26 +110,21 @@ public class VendingMachine {
 
 		private void useVendingMachineAsCustomer() {
 			//Scanner sc = new Scanner(System.in);
-			for (var products : this.vendingMachineService.getInventory().getUniqueItemNames()) {
-				System.out.println("- " + products);
-			}
-			System.out.println("-----------------------------");
+			this.viewInventory();
 
-			System.out.println("What would you like to do?");
-			System.out.println("1. Add to Cart\n2. Pay and Checkout\n3. Clear Cart\n4.Abort");
+			int userChoice = -1;
+			while (userChoice != 4) {
+				System.out.println("What would you like to do?");
+				System.out.println("1. Add to Cart\n2. Pay and Checkout\n3. Clear Cart\n4. Abort");
 
-			while (this.choice == 11) {
-
-				int userChoice = scanner.nextInt();
+				userChoice = scanner.nextInt();
 				
 				switch (userChoice) {
 					case 1:
-						this.choice = 12;
 						this.addToCartMenu();
 						break;
 
 					case 2:
-						this.choice = 13;
 						this.givePaymentAndCheckout();
 						break;
 
@@ -138,19 +133,18 @@ public class VendingMachine {
 						break;
 
 					case 4:
-						this.choice = 2;
 						this.testVendingMachine();
 						break;
 
 					default:
 						System.out.println("Wrong input!");
-						this.choice = 2;
-						this.testVendingMachine();
 						break;
+
 				}
 			}
 
 		}
+
 
 		private void useVendingMachineAsModerator(){
 			int maintenanceChoice = -1;
@@ -189,12 +183,13 @@ public class VendingMachine {
 			}
 
 		}
+		// Methods for useVendingMachineAsModerator
 		private void manageItems() {
 		int maintenanceChoice = -1;
-		while (maintenanceChoice != 4){
+		while (maintenanceChoice != 5){
 
 			System.out.println("Manage items: ");
-			System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. View inventory");
+			System.out.println("1. Automatic products insertion\n2. Manual product insertion.\n3. Restock items\n4. View inventory\5 Exit");
 			System.out.println("What would you like to do?");
 			System.out.print(">> ");
 			maintenanceChoice = scanner.nextInt();
@@ -217,7 +212,6 @@ public class VendingMachine {
 					break;
 
 				case 5:
-
 					break;
 
 				default:
@@ -320,22 +314,21 @@ public class VendingMachine {
 
 	}
 
+		// Methods for useVendingMachineAsCustomer
 		private void addToCartMenu () {
+			int userChoice = -1;
+			while (userChoice != 1) {
 
+				System.out.println("What would you like to buy? (return 'DONE' once finished adding to cart)");
+				System.out.print(">>");
+				scanner.nextLine();
+				String desiredItem = scanner.nextLine();
+				int quantity = 0;
+				if (!desiredItem.equals("DONE")){
 
-			System.out.println("List of products:");
-			
-			System.out.println("What would you like to buy? (return 'DONE' once finished adding to cart)");
-
-			while (this.choice == 12) {
-				
-				//scanner.nextLine();
-				String desiredItem = scanner.next();
-				
-				
-				System.out.println("How many?");
-				int quantity = scanner.nextInt();
-				
+					System.out.print("How many? ");
+					quantity = scanner.nextInt();
+				}
 				
 				if (this.vendingMachineService.getInventory().getUniqueItemNames().contains(desiredItem)) {
 					try {
@@ -343,17 +336,18 @@ public class VendingMachine {
 					} catch (Exception e) {
 						System.out.println("Not enough in stock!");
 					}
-					continue;
-				} else {
-					if (desiredItem != "DONE") {
+
+				}
+				else {
+					if (!desiredItem.equals("DONE")) {
 						System.out.println("Wrong input!");
+					} else {
+						userChoice = 1;
 					}
-					
-					this.choice = 11;
+
 				}
 			}
 			System.out.println("Total cost in cart: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()));
-			this.useVendingMachineAsCustomer();
 		}
 
 		private void givePaymentAndCheckout () {
@@ -388,10 +382,10 @@ public class VendingMachine {
 				try {
 				double moneyIn = Double.valueOf(input);
 					thePayment.add(Denomination.of(moneyIn));
-					continue;
+
 				} catch (Exception e) {
 					System.out.println("Invalid input!");
-					continue;
+
 				}
 			}
 		
@@ -439,12 +433,13 @@ public class VendingMachine {
 		}
 
 
-	private void addCashToSupplyManually() {
+		private void addCashToSupplyManually() {
 
 			Denomination billToBeInserted = null;
 			int maintenanceChoice = -1;
 			while (maintenanceChoice != 2) {
 				System.out.println("Enter denominations: 1, 5, 10, 20, 50, 100, 200, 500, 1000. Input '3' if done.");
+				scanner.nextLine();
 				double denomInput = scanner.nextDouble();
 				
 				if (denomInput == 3) {
