@@ -14,9 +14,9 @@ public class Summary {
 
     // TODO From here up to bottom
 	public ArrayList<Item> getInitialInventory(){
-		ArrayList<Item> initialInventory = new ArrayList<>();
-		initialInventory.addAll(this.initialInventory);
-		return initialInventory;
+		//ArrayList<Item> initialInventory = new ArrayList<>();
+		//initialInventory.addAll(this.initialInventory);
+		return this.initialInventory;
 	}
     public void setInitialInventory(ArrayList<Item> inStock) {
         this.initialInventory = new ArrayList<>();
@@ -68,11 +68,13 @@ public class Summary {
         return uniqueNames;
     }
 
-	public ArrayList<String> getUniqueItemsNamesIniInventory() {
+	public ArrayList<String> getUniqueItemsIniInventory() {
 		ArrayList<String> unique = new ArrayList<String>();
+		
 		for (Item item : this.initialInventory) {
-			if (!unique.contains(item.getName())) {
-				unique.add(item.getName());
+			String nameOfItem = item.getName();
+			if (!unique.contains(nameOfItem)) {
+				unique.add(nameOfItem);
 			}
 		}
 		return unique;
@@ -103,5 +105,15 @@ public class Summary {
 //		return this.receipt;
 //	}
 	
+
+	public Item findFirst(String itemName) { //If you want to buy the item, you use this method to find that first item that you want
+
+        for (int i = 0; i < this.initialInventory.size(); i++) {
+            if (itemName.equals(this.initialInventory.get(i).getName())) {
+                return initialInventory.get(i);
+            }
+        }
+        throw new IllegalArgumentException("The vending machine does not have that item.");
+    }
 
 }

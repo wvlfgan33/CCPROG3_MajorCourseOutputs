@@ -14,7 +14,7 @@ public class Inventory {
 
 
         if (quantity < 0){
-            throw new IllegalArgumentException("Invalid number of items! ");
+            throw new IllegalArgumentException("Invalid number of items!");
         }
         for (int i = 0; i < quantity; i++){
             if (this.getQuantity(item.getName()) >= MAX_PER_SLOT) {
@@ -69,6 +69,6 @@ public class Inventory {
     }
 
     public void dispenseItem(String name){
-        inStock.remove(findFirst(name));
+        this.inStock.remove(findFirst(name));
     }
 }

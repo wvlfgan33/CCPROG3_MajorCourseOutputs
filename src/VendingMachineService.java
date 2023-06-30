@@ -30,34 +30,38 @@ public class VendingMachineService { //TODO
 			throw new IllegalArgumentException("The minimum slots is not satisfied.");
 		}
 
-		for (String itemName: inventory.getUniqueItemNames()){
-			if (inventory.getQuantity(itemName) < 10){
+		for (String itemName: this.inventory.getUniqueItemNames()){
+			if (this.inventory.getQuantity(itemName) < 10){
 				throw new IllegalArgumentException("The minimum quantity per item requirement is not satisfied.");
 			}
 		}
 
-		isOperational = true;
-		summary.setInitialInventory(this.inventory.getInStock());
+		
+		if (!this.isOperational) {
+			this.summary.setInitialInventory(this.inventory.getInStock());
+		} 
+		
+		this.isOperational = true;
 	}
 
-	public boolean getIsOperational(){ return isOperational; }
+	public boolean getIsOperational(){ return this.isOperational; }
 
-	public Inventory getInventory(){ return inventory; }
-	public CashRegister getCashRegister(){ return cashRegister; }
+	public Inventory getInventory(){ return this.inventory; }
+	public CashRegister getCashRegister(){ return this.cashRegister; }
 
-	public Summary getSummary(){ return summary; }
+	public Summary getSummary(){ return this.summary; }
 
 	public void addToCart(String name, int quantity){
-		Item item = inventory.findFirst(name);
+		Item item = this.inventory.findFirst(name);
 
-		if (quantity > inventory.getQuantity(name)){
+		if (quantity > this.inventory.getQuantity(name)){
 			throw new IllegalArgumentException("Not enough quantity for the requested item");
 		}
 		for (int i = 0; i < quantity; i++){
-			cart.add(item);
+			this.cart.add(item);
 		}
 	}
-	public ArrayList<Item> getCart(){ return cart; }
+	public ArrayList<Item> getCart(){ return this.cart; }
 
 	public void clearCart(){
 		this.cart = new ArrayList<>();
@@ -77,11 +81,12 @@ public class VendingMachineService { //TODO
 		ArrayList<Item> cart = this.getCart();
 		double priceOfCart = this.getTotalCostInCart();
 		ArrayList<Denomination> changeList = this.cashRegister.transact(payment, priceOfCart);
+		
 		for (int i = 0; i < this.getCart().size(); i++){
 			this.inventory.dispenseItem(this.getCart().get(i).getName());
 		}
 		
-		summary.recordSales(cart);
+		this.summary.recordSales(cart);
 		
 		return changeList;
 	}
