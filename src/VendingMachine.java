@@ -91,10 +91,11 @@ public class VendingMachine {
 				throw new IllegalArgumentException("Machine is not operational yet. ");
 			}
 
-			this.viewInventory();
+			
 
 			int userChoice = -1;
 			while (userChoice != 4) {
+				this.viewInventory();
 				System.out.println("What would you like to do?");
 				System.out.println("1. Add to Cart\n2. Pay and Checkout\n3. Clear Cart\n4. Exit");
 				System.out.print(">> ");
