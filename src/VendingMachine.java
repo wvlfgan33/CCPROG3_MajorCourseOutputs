@@ -23,14 +23,17 @@ public class VendingMachine {
 
 				switch(choice){
 					case 1:
-						this.choice = 1;
+						//this.choice = 1;
 						this.vendingMachineService = new VendingMachineService();
 						break;
 
 					case 2:
-						this.choice = 2;
-						this.testVendingMachine();
-						break;
+						//this.choice = 2;
+						if (vendingMachineService == null) {
+							System.out.println("Vending Machine has not been created!");
+						} else {
+							this.testVendingMachine();
+						} break;
 
 					case 3:
 						scanner.close();
@@ -457,17 +460,29 @@ public class VendingMachine {
 			}
 		
 		private void printOperationSummary() {
+			System.out.println("===============================================");
+			System.out.println("Items sold:\n");
 			for (String item : vendingMachineService.getSummary().getUniqueItemNamesInSales()) {
 				System.out.println(item + " x" + vendingMachineService.getSummary().getQuantitySold(item));
 			}
-			System.out.println("Total Earnings: Php " + this.vendingMachineService.getSummary().computeTotalEarnings());
+			System.out.println("\nTotal Earnings: Php " + this.vendingMachineService.getSummary().computeTotalEarnings());
 			
 			System.out.println("===============================================");
-			System.out.println("Starting Inventory:\n");
-			for (Item item : this.vendingMachineService.getSummary().getInitialInventory()) {
+			
+			System.out.println("Starting Inventory:");
+			/*for (Item item : this.vendingMachineService.getSummary().getInitialInventory()) {
 				System.out.println(item.getName());
+			}*/
+			System.out.println("===============================================");
+			for (var i : vendingMachineService.getSummary().getUniqueItemsNamesIniInventory()) {
+				int quantity = this.vendingMachineService.getSummary().countItemInInitialInventory(i);
+				//String name = i.getName();
+				double price = this.vendingMachineService.getInventory().getPrice(i);
+				double calories = this.vendingMachineService.getInventory().getCalories(i);
+	
+				System.out.println("x" + quantity + " " + i + " | Php " + price + " | Calories: " + calories);
 			}
-			System.out.println("Current Inventory:\n");
+			System.out.println("Current Inventory:");
 			this.viewInventory();
 		}
 

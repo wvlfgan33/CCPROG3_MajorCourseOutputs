@@ -67,7 +67,26 @@ public class Summary {
         }
         return uniqueNames;
     }
+
+	public ArrayList<String> getUniqueItemsNamesIniInventory() {
+		ArrayList<String> unique = new ArrayList<String>();
+		for (Item item : this.initialInventory) {
+			if (!unique.contains(item.getName())) {
+				unique.add(item.getName());
+			}
+		}
+		return unique;
+	}
 	
+	public int countItemInInitialInventory(String itemName) {
+		int count = 0;
+		for (var ini : this.initialInventory) {
+			if (itemName.equals(ini.getName())) {
+				count++;
+			}
+		}
+		return count;
+	}
 	
 //	public void generateReceipt(ArrayList<Item> cartItems, double priceOfItems) {
 //		this.receipt = "";

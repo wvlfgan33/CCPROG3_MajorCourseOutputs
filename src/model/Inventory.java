@@ -7,7 +7,7 @@ public class Inventory {
     private ArrayList<Item> inStock = new ArrayList<>();
 
 
-	private final int MAX_PER_SLOT = 20;
+	private static final int MAX_PER_SLOT = 20;
 
 
     public void addItem(Item item, int quantity){
@@ -20,7 +20,7 @@ public class Inventory {
             if (this.getQuantity(item.getName()) >= MAX_PER_SLOT) {
 				break;
 			}
-			inStock.add(item);
+			this.inStock.add(item);
         }
     }
 	
