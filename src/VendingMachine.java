@@ -87,8 +87,9 @@ public class VendingMachine {
 	}
 
 		private void useVendingMachineAsCustomer() {
+			this.vendingMachineService.clearCart();
 			if (!this.vendingMachineService.getIsOperational()){
-				throw new IllegalArgumentException("Machine is not operational yet. ");
+				throw new IllegalArgumentException("Machine is not operational yet.");
 			}
 
 			
@@ -117,6 +118,7 @@ public class VendingMachine {
 						break;
 
 					case 4:
+						this.vendingMachineService.clearCart();
 						this.testVendingMachine();
 						break;
 
@@ -332,7 +334,7 @@ public class VendingMachine {
 
 				}
 			}
-			System.out.println("Total cost in cart: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()));
+			System.out.println("~~* Total cost in cart: " + String.valueOf(this.vendingMachineService.getTotalCostInCart()) + " *~~");
 		}
 		private ArrayList<Denomination> makePayment() {
 			ArrayList<Denomination> thePayment = new ArrayList<>();
@@ -361,7 +363,13 @@ public class VendingMachine {
 		}
 		
 		private void checkout(ArrayList<Denomination> thePayment) {
-			ArrayList<Denomination> change = this.vendingMachineService.payForCart(thePayment);
+			ArrayList<Denomination> change;
+			try {
+				change = this.vendingMachineService.payForCart(thePayment);
+			} catch (Exception e) {
+				System.out.println("You did not insert enough money... or you are just broke.");
+				return;
+			}
 
 			System.out.println("-----------------------------------------------------");
 			System.out.println("Items bought:");
