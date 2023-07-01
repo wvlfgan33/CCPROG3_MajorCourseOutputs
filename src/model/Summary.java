@@ -67,15 +67,6 @@ public class Summary {
 		return count;
 	}
 
-	/**
-	 * Returns an ArrayList of Items contain all Items that have been sold to customers.
-	 * @return An ArrayList containing all sold items.
-	 */
-	public ArrayList<Item> getSales() {
-		ArrayList<Item> sales = new ArrayList<>();
-		sales.addAll(this.sales);
-		return sales;
-	}
 
 	/**
 	 * Gets the names of all items that have been sold.
