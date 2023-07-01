@@ -27,22 +27,6 @@ public class CashRegister {
 	}
 
 	/**
-	 * returns the cash list of the cash register.
-	 * @return the cash list of the cash register.
-	 */
-	public ArrayList<Denomination> getCashList(){
-		return cashList;
-	}
-
-	/**
-	 * sets the cash list of the cash register.
-	 * @param newCashList new cash list to set to the cash register.
-	 */
-	public void setCashList(ArrayList<Denomination> newCashList) {
-		this.cashList = newCashList;
-	}
-
-	/**
 	 * collects all cash from the cash register.
 	 */
 	public void collectAllCash() {

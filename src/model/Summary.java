@@ -12,21 +12,21 @@ public class Summary {
 		this.inventory = inventory;
 	}
 
-    // TODO From here up to bottom
-	public ArrayList<Item> getInitialInventory(){
+//	public ArrayList<Item> getInitialInventory(){
 		//ArrayList<Item> initialInventory = new ArrayList<>();
 		//initialInventory.addAll(this.initialInventory);
-		return this.initialInventory;
-	}
+//		return this.initialInventory;
+//	}
     public void setInitialInventory(ArrayList<Item> inStock) {
         this.initialInventory = new ArrayList<>();
 		this.initialInventory.addAll(inStock);
     }
-	public ArrayList<Item> getCurrentInventory(){
-		ArrayList<Item> finalInventory = new ArrayList<>();
-		finalInventory.addAll(this.inventory.getInStock());
-		return finalInventory;
-	}
+
+//	public ArrayList<Item> getCurrentInventory(){
+//		ArrayList<Item> finalInventory = new ArrayList<>();
+//		finalInventory.addAll(this.inventory.getInStock());
+//		return finalInventory;
+//	}
 
     public void recordSales(ArrayList<Item> dispensedItems){
 		this.sales.addAll(dispensedItems);
@@ -104,7 +104,6 @@ public class Summary {
 //	public String getReceipt() {
 //		return this.receipt;
 //	}
-	
 
 	public Item findFirst(String itemName) { //If you want to buy the item, you use this method to find that first item that you want
 
