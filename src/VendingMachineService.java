@@ -1,3 +1,7 @@
+/**
+ * A VendingMachineService acts as a bridge
+ */
+
 import model.Denomination;
 import model.Inventory;
 import model.Item;
@@ -6,7 +10,7 @@ import model.Summary;
 
 import java.util.ArrayList;
 
-public class VendingMachineService { //TODO
+public class VendingMachineService {
 
 	private CashRegister cashRegister;
 	private Summary summary;
@@ -91,54 +95,6 @@ public class VendingMachineService { //TODO
 		return changeList;
 	}
 
-	
-
-
-
-
-
-
-//	public void begin(){ //start vending machine
-//
-//	}
-//	public Double getTotalEarnings(){
-//
-//	}
-
-//    public VendingMachine(HashMap<Item, Integer> startingItems){
-//		this.inventory = startingItems;
-//
-//    }
-
-//
-
-//
-//    // The moderator can use this for versatility.
-//    public void setItem(Item item, int quantity) { // TODO revise the addItem, because this method performs setItemQuantity
-//		if ( quantity > 20 ){
-//            throw new IllegalArgumentException("Quantity limit exceeded for item: " + item.getName());
-//        } else{
-//            //System.out.printf("\tAdding item %s with quantity %d...\n", item.getName(), quantity);
-//            inventory.put(item, quantity);
-//        }
-//    }
-//
-//    // The moderator can use this for convenience to ensure that the minimum criteria for the quantity is met.
-//    public void setItem(Item item) { // TODO revise the addItem, because this method performs setItemQuantity
-//        this.setItem(item, 10);
-//    }
-//
-//    public Map<Item, Integer> getInventory(){ // TODO this should not print, retrieve (not printInventory but getInventory)
-//        return inventory;
-////        ArrayList<model.Item> items = new ArrayList<>( inventory.keySet() );
-////        ArrayList<Integer> quantities = new ArrayList<>( inventory.values() );
-////        System.out.println("\nInventory:");
-////        for (int i = 0; i < inventory.size(); i++){
-////            model.Item oneItem = items.get(i);
-////            int oneQuantity = quantities.get(i);
-////
-////            System.out.printf("%d. %s x%d: \n\tPrice per item: %s\n", i+1, oneItem.getName(), oneQuantity, oneItem.getPrice());
-//    }
 }
 
 
