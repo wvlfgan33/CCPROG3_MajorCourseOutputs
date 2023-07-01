@@ -1,4 +1,8 @@
 package model;
+/**
+ * A denomination represents a bill (money bill like 20 peso bill).
+ * It includes all the denomination in the Philippines, and a double value for which the bills represent.
+ */
 
 public enum Denomination {
     ONE_THOUSAND(1000.0),
@@ -16,9 +20,17 @@ public enum Denomination {
         this.value = value;
     }
 
+    /**
+     * gets the value of the denomination.
+     * @return the value of the denomination.
+     */
     public double getValue(){ return value; }
-		
-		
+
+    /**
+     * it converts the raw value into a bill (denomination)
+     * @param rawDouble is the raw value of the bill
+     * @return the converted denomination
+     */
 	public static Denomination of(double rawDouble) {
 		Denomination[] allPossibleDenominations = Denomination.values();
 
