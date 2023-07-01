@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import model.Denomination;
 import model.Item;
+import model.VendingMachineService;
 
 public class VendingMachine {
 	Scanner scanner = new Scanner(System.in);

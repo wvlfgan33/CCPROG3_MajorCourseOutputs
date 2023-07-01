@@ -1,7 +1,5 @@
-/**
- * A VendingMachineService represents the service for a VendingMachine where it covers all the functionalities of a VendingMachine.
- * It includes cash register, summary, and inventory, if it is operational, and cart (list of items), as components of a VendingMachineService, in order.
- */
+package model;
+
 
 import model.Denomination;
 import model.Inventory;
@@ -11,6 +9,10 @@ import model.Summary;
 
 import java.util.ArrayList;
 
+ /**
+ * A model.VendingMachineService represents the service for a VendingMachine where it covers all the functionalities of a VendingMachine.
+ * It includes cash register, summary, and inventory, if it is operational, and cart (list of items), as components of a model.VendingMachineService, in order.
+ */
 public class VendingMachineService {
 
 	private CashRegister cashRegister;
@@ -20,7 +22,7 @@ public class VendingMachineService {
 	private ArrayList<Item> cart = new ArrayList<>();
 
 	/**
-	 * creates a VendingMachineService object by also creating inventory, cashRegister, summary, and cart, in order.
+	 * creates a model.VendingMachineService object by also creating inventory, cashRegister, summary, and cart, in order.
 	 */
 
 	public VendingMachineService() {
