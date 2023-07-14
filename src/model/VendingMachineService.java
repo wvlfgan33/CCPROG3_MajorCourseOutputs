@@ -1,6 +1,5 @@
 package model;
 
-
 import model.Denomination;
 import model.Inventory;
 import model.Item;
@@ -13,13 +12,13 @@ import java.util.ArrayList;
  * A model.VendingMachineService represents the service for a VendingMachine where it covers all the functionalities of a VendingMachine.
  * It includes cash register, summary, and inventory, if it is operational, and cart (list of items), as components of a model.VendingMachineService, in order.
  */
-public class VendingMachineService {
+public abstract class VendingMachineService {
 
-	private CashRegister cashRegister;
-	private Summary summary;
-	private Inventory inventory;
-	private boolean isOperational = false;
-	private ArrayList<Item> cart = new ArrayList<>();
+	protected CashRegister cashRegister;
+	protected Summary summary;
+	protected Inventory inventory;
+	protected boolean isOperational = false;
+	protected ArrayList<Item> cart = new ArrayList<>();
 
 	/**
 	 * creates a model.VendingMachineService object by also creating inventory, cashRegister, summary, and cart, in order.
@@ -85,16 +84,8 @@ public class VendingMachineService {
 	 * @param name of the item.
 	 * @param quantity of the item.
 	 */
-	public void addToCart(String name, int quantity){
-		Item item = this.inventory.findFirst(name);
+	public abstract void addToCart(String name, int quantity);
 
-		if (quantity > this.inventory.getQuantity(name)){
-			throw new IllegalArgumentException("Not enough quantity for the requested item");
-		}
-		for (int i = 0; i < quantity; i++){
-			this.cart.add(item);
-		}
-	}
 
 	/**
 	 * returns the list of items in the cart.
@@ -124,23 +115,11 @@ public class VendingMachineService {
 
 	/**
 	 * returns the change (list of denominations) after paying for the cart.
-	 * @param payment of the user.
+	 * @param denominations of the user.
 	 * @return the change (list of denominations) after paying for the cart.
 	 */
-	public ArrayList<Denomination> payForCart(ArrayList<Denomination> payment){
+	public abstract ArrayList<Denomination> payForCart(ArrayList<Denomination> denominations);
 
-		ArrayList<Item> cart = this.getCart();
-		double priceOfCart = this.getTotalCostInCart();
-		ArrayList<Denomination> changeList = this.cashRegister.transact(payment, priceOfCart);
-		
-		for (int i = 0; i < this.getCart().size(); i++){
-			this.inventory.dispenseItem(this.getCart().get(i).getName());
-		}
-		
-		this.summary.recordSales(cart);
-		
-		return changeList;
-	}
 
 }
 
