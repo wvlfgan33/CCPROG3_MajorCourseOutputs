@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * A model.VendingMachineService represents the service for a VendingMachine where it covers all the functionalities of a VendingMachine.
  * It includes cash register, summary, and inventory, if it is operational, and cart (list of items), as components of a model.VendingMachineService, in order.
  */
-public abstract class VendingMachineService {
+public class VendingMachineService {
 
 	protected CashRegister cashRegister;
 	protected Summary summary;
@@ -84,9 +84,17 @@ public abstract class VendingMachineService {
 	 * @param name of the item.
 	 * @param quantity of the item.
 	 */
-	public abstract void addToCart(String name, int quantity);
+	public void addToCart(String name, int quantity) {
 
+            Item item = this.inventory.findFirst(name);
 
+            if (quantity > this.inventory.getQuantity(name)){
+                throw new IllegalArgumentException("Not enough quantity for the requested item");
+            }
+            for (int i = 0; i < quantity; i++){
+                this.cart.add(item);
+        }
+    }
 	/**
 	 * returns the list of items in the cart.
 	 * @return the list of items in the cart.
@@ -118,7 +126,19 @@ public abstract class VendingMachineService {
 	 * @param denominations of the user.
 	 * @return the change (list of denominations) after paying for the cart.
 	 */
-	public abstract ArrayList<Denomination> payForCart(ArrayList<Denomination> denominations);
+	public ArrayList<Denomination> payForCart(ArrayList<Denomination> denominations) {
+		ArrayList<Item> cart1 = this.cart;
+		double priceOfCart = this.getTotalCostInCart();
+		ArrayList<Denomination> changeList = this.cashRegister.transact(denominations, priceOfCart);
+
+		for (int i = 0; i < this.cart.size(); i++){
+			this.getInventory().dispenseItem(this.cart.get(i).getName());
+		}
+
+		this.summary.recordSales(cart1);
+
+		return changeList;
+	}
 
 
 }

@@ -6,7 +6,7 @@ package model;
  * An item, of course, has a name, a price (in Philippine Peso), and
  * the amount of calories it has (assuming it is a food item).
  */
-public abstract class Item {
+public class Item {
     private String name;
     private double price;
     private double calories;
