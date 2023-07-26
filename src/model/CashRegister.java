@@ -21,6 +21,11 @@ public class CashRegister {
 	 * @param copies quantity of the denomination type.
 	 */
 	public void addCash(Denomination type, int copies){
+		if (copies <= 0){
+			System.err.println("Invalid quantity! ");
+			throw new IllegalArgumentException("Invalid quantity! ");
+		}
+
 		for (int i = 0 ; i < copies; i++){
 			cashList.add(type);
 		}
@@ -29,8 +34,13 @@ public class CashRegister {
 	/**
 	 * collects all cash from the cash register.
 	 */
-	public void collectAllCash() {
+	public double collectAllCash() {
+		double totalCash = 0;
+		for (Denomination cash: cashList){
+			totalCash += cash.getValue();
+		}
 		this.cashList = new ArrayList<>();
+		return totalCash;
 	}
 
 	/**

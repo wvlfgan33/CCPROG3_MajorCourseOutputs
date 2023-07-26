@@ -19,8 +19,18 @@ public class Inventory {
      * @param quantity how much of the item to be added
      */
     public void addItem(Item item, int quantity){
-        if (quantity < 0){
+        if (quantity <= 0){
             throw new IllegalArgumentException("Invalid number of items!");
+        }
+
+        if (item.getCalories() < 0){
+            System.err.println("Invalid calories! ");
+            throw new IllegalArgumentException("Invalid calories!");
+        }
+
+        if (item.getPrice() <= 0){
+            System.err.println("Invalid price! ");
+            throw new IllegalArgumentException("Invalid price!");
         }
         for (int i = 0; i < quantity; i++){
             if (this.getQuantity(item.getName()) >= MAX_PER_SLOT) {
