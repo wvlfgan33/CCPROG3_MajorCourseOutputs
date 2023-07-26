@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-
-public class SpecialVendingMachineService extends VendingMachineService{
+public class SpecialRegularVendingMachineService extends RegularVendingMachineService {
     @Override
     public void addToCart(String name, int quantity) {
 
