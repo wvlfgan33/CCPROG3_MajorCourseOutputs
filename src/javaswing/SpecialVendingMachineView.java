@@ -97,7 +97,6 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
             public void actionPerformed(ActionEvent e) {
                 try{
                     vendingMachineService.begin();
-
                     addToCartButton.setEnabled(true);
                     payAndCheckoutButton.setEnabled(true);
                     viewCartButton.setEnabled(true);

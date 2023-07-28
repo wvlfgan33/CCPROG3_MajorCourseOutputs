@@ -90,9 +90,10 @@ public class RegularVendingMachineView extends JFrame {
             // Print Summary of Transactions
         this.printSummaryOfTransactions();
 
-        // TODO Remus 4.
+        // TODO Remus 4 printSummaryOfTransactions()
             // Open to Public
         this.openToPublicButton();
+
 
     }
 
@@ -222,8 +223,14 @@ public class RegularVendingMachineView extends JFrame {
    }
 
     // TODO Remus 4.
-   protected void printSummaryOfTransactions(){
 
+   protected void printSummaryOfTransactions(){
+       printSummaryOfTransactionsButton.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               new TransactionsSummary(RegularVendingMachineView.this);
+           }
+       });
    }
    protected void openToPublicButton(){
        openToPublicButton.addActionListener(new ActionListener() {
@@ -236,6 +243,8 @@ public class RegularVendingMachineView extends JFrame {
                    viewCartButton.setEnabled(true);
                    clearCartButton.setEnabled(true);
                    buyCustomCoffeeButton.setEnabled(false);
+
+
                    JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Machine is now operational. ", "", JOptionPane.INFORMATION_MESSAGE);
 
 
@@ -266,6 +275,7 @@ public class RegularVendingMachineView extends JFrame {
 
        DefaultTableModel tableContents = (DefaultTableModel) this.inventoryTable.getModel();
        tableContents.setRowCount(0);
+
        for (String itemName : uniqueItemNames){
            double price = this.vendingMachineService.getInventory().getPrice(itemName);
            double calories = this.vendingMachineService.getInventory().getCalories(itemName);
@@ -274,7 +284,6 @@ public class RegularVendingMachineView extends JFrame {
            tableContents.addRow(new Object[] {
                    itemName, price, calories, quantity
            });
-
        }
 
        inventoryTable.repaint();
