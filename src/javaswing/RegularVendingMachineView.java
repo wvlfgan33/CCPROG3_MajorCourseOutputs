@@ -5,36 +5,42 @@ import model.Item;
 import model.RegularVendingMachineService;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class RegularVendingMachineView extends JFrame {
     private JPanel vendingMachinePanel;
-    private JButton openVendingMachineToButton;
-    private JButton maintenanceFeaturesButton;
-    private JButton backButton;
-    private JButton payAndCheckoutButton;
-    private JButton clearCartButton;
-    private JButton addToCartButton;
+    protected JButton payAndCheckoutButton;
+    protected JButton clearCartButton;
+    protected JButton addToCartButton;
     private JButton addQuantityButton;
     private JButton collectAllMoneyButton;
-    private JButton openToPublicButton;
-    private JButton addProductButton;
-    private JButton prepopulateProductsButton;
+    protected JButton openToPublicButton;
+    protected JButton addProductButton;
+    protected JButton prepopulateProductsButton;
     private JButton addCashButton;
     private JButton prepopulateCashRegisterButton;
-    private JTable table1;
-    private JButton testVendingMachine;
+    private JTable inventoryTable;
+    private JScrollPane inventoryScrollPane;
+    protected JButton viewCartButton;
+    protected JButton buyCustomCoffeeButton;
+    private JButton printSummaryOfTransactionsButton;
+    protected RegularVendingMachineService vendingMachineService;
 
-    private RegularVendingMachineService regularVendingMachineService;
-
-    public RegularVendingMachineService getRegularVendingMachineService() {
-        return regularVendingMachineService;
+    public RegularVendingMachineService getVendingMachineService() {
+        return vendingMachineService;
     }
 
+
     public RegularVendingMachineView(MainFrame frame){
+        this.initService();
+        this.initTable();
+
         setContentPane(vendingMachinePanel);
         setTitle("Regular Vending Machine");
         setSize(1000, 600);
@@ -48,7 +54,6 @@ public class RegularVendingMachineView extends JFrame {
             }
         });
 
-        this.regularVendingMachineService = new RegularVendingMachineService();
 
         // Vending Features
 
@@ -82,10 +87,17 @@ public class RegularVendingMachineView extends JFrame {
         this.collectAllMoneyButton();
 
          // Others
+            // Print Summary of Transactions
+        this.printSummaryOfTransactions();
 
+        // TODO Remus 4.
             // Open to Public
         this.openToPublicButton();
 
+    }
+
+    protected void initService(){
+        this.vendingMachineService = new RegularVendingMachineService();
     }
 
     // Vending Features
@@ -137,23 +149,25 @@ public class RegularVendingMachineView extends JFrame {
                 Item item6 = new Item("Cheddar Pringles", 80.00, 140.0);
                 Item item7 = new Item("Bottled Water", 15.00, 0.0);
                 Item item8 = new Item("Coffee", 100.00, 207);
-                Item item9 = new Item("Chocolate Syrup", 20.00, 279.0);
-                Item item10 = new Item("Dark chocolate", 50.00, 100.0);
-                Item item11 = new Item("White chocolate", 50.00, 250.0);
+                Item item10 = new Item("Dark Chocolate", 30.00, 100.0);
+                Item item11 = new Item("White Chocolate", 30.00, 250.0);
+                Item item12 = new Item("Vanilla Ice Cream", 50.00, 250.0);
 
-                regularVendingMachineService.getInventory().addItem(item1, 10);
-                regularVendingMachineService.getInventory().addItem(item2, 10);
-                regularVendingMachineService.getInventory().addItem(item3, 10);
-                regularVendingMachineService.getInventory().addItem(item4, 10);
-                regularVendingMachineService.getInventory().addItem(item5, 10);
-                regularVendingMachineService.getInventory().addItem(item6, 10);
-                regularVendingMachineService.getInventory().addItem(item7, 10);
-                regularVendingMachineService.getInventory().addItem(item8, 10);
-                regularVendingMachineService.getInventory().addItem(item9, 10);
-                regularVendingMachineService.getInventory().addItem(item10, 10);
-                regularVendingMachineService.getInventory().addItem(item11, 10);
+
+                vendingMachineService.getInventory().addItem(item1, 10);
+                vendingMachineService.getInventory().addItem(item2, 10);
+                vendingMachineService.getInventory().addItem(item3, 10);
+                vendingMachineService.getInventory().addItem(item4, 10);
+                vendingMachineService.getInventory().addItem(item5, 10);
+                vendingMachineService.getInventory().addItem(item6, 10);
+                vendingMachineService.getInventory().addItem(item7, 10);
+                vendingMachineService.getInventory().addItem(item8, 10);
+                vendingMachineService.getInventory().addItem(item10, 10);
+                vendingMachineService.getInventory().addItem(item11, 10);
+                vendingMachineService.getInventory().addItem(item12, 10);
+
                 JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Success! ", "", JOptionPane.INFORMATION_MESSAGE);
-
+                drawInventory();
             }
         });
     }
@@ -162,7 +176,7 @@ public class RegularVendingMachineView extends JFrame {
         addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddProductView(regularVendingMachineService);
+                new AddProductView(RegularVendingMachineView.this);
 
             }
         });
@@ -171,7 +185,7 @@ public class RegularVendingMachineView extends JFrame {
         addQuantityButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddQuantityView(regularVendingMachineService);
+                new AddQuantityView(RegularVendingMachineView.this);
             }
         });
     }
@@ -181,7 +195,7 @@ public class RegularVendingMachineView extends JFrame {
            public void actionPerformed(ActionEvent e) {
                int addition = 15;
                for (Denomination de : Denomination.values()){
-                   regularVendingMachineService.getCashRegister().addCash(de, addition);
+                   vendingMachineService.getCashRegister().addCash(de, addition);
                }
 
                JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Success! ", "", JOptionPane.INFORMATION_MESSAGE);
@@ -192,7 +206,7 @@ public class RegularVendingMachineView extends JFrame {
        addCashButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               new AddCashView(regularVendingMachineService);
+               new AddCashView(vendingMachineService);
            }
        });
    }
@@ -200,22 +214,28 @@ public class RegularVendingMachineView extends JFrame {
        collectAllMoneyButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               double totalMoney = regularVendingMachineService.getCashRegister().collectAllCash();
+               double totalMoney = vendingMachineService.getCashRegister().collectAllCash();
                JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Total Money Collected: " + totalMoney, "", JOptionPane.INFORMATION_MESSAGE);
 
            }
        });
+   }
+
+    // TODO Remus 4.
+   protected void printSummaryOfTransactions(){
+
    }
    protected void openToPublicButton(){
        openToPublicButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
                try{
-                   regularVendingMachineService.begin();
-
+                   vendingMachineService.begin();
                    addToCartButton.setEnabled(true);
                    payAndCheckoutButton.setEnabled(true);
+                   viewCartButton.setEnabled(true);
                    clearCartButton.setEnabled(true);
+                   buyCustomCoffeeButton.setEnabled(false);
                    JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Machine is now operational. ", "", JOptionPane.INFORMATION_MESSAGE);
 
 
@@ -228,6 +248,36 @@ public class RegularVendingMachineView extends JFrame {
        });
    }
 
+   private void initTable(){
+       Vector<String> headers = new Vector<>();
+       headers.add("Name");
+       headers.add("Price");
+       headers.add("Calories");
+       headers.add("Quantity");
 
+       DefaultTableModel tableContents = new DefaultTableModel(headers, 0);
+       this.inventoryTable.setModel(tableContents);
+
+       this.inventoryScrollPane.setViewportView(this.inventoryTable);
+   }
+
+   public void drawInventory(){
+       ArrayList<String> uniqueItemNames = this.vendingMachineService.getInventory().getUniqueItemNames();
+
+       DefaultTableModel tableContents = (DefaultTableModel) this.inventoryTable.getModel();
+       tableContents.setRowCount(0);
+       for (String itemName : uniqueItemNames){
+           double price = this.vendingMachineService.getInventory().getPrice(itemName);
+           double calories = this.vendingMachineService.getInventory().getCalories(itemName);
+           int quantity = this.vendingMachineService.getInventory().getQuantity(itemName);
+
+           tableContents.addRow(new Object[] {
+                   itemName, price, calories, quantity
+           });
+
+       }
+
+       inventoryTable.repaint();
+   }
 
 }

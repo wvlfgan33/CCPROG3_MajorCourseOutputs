@@ -19,10 +19,12 @@ public class AddProductView extends JDialog {
     private JLabel caloriesLabel;
     private JLabel quantityLabel;
 
-    private RegularVendingMachineService regularVendingMachineService;
+    private RegularVendingMachineService vendingMachineService;
 
-    public AddProductView(RegularVendingMachineService regularVendingMachineService) {
-        this.regularVendingMachineService = regularVendingMachineService;
+    private RegularVendingMachineView view;
+    public AddProductView(RegularVendingMachineView view) {
+        this.vendingMachineService = view.getVendingMachineService();
+        this.view = view;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -66,17 +68,13 @@ public class AddProductView extends JDialog {
             double productCalories = Double.parseDouble(calories.getText());
             int productQuantity = (int) quantity.getValue();
             Item item = new Item(productName.getText(), productPrice, productCalories);
-            this.regularVendingMachineService.getInventory().addItem(item, productQuantity);
+            this.vendingMachineService.getInventory().addItem(item, productQuantity);
             JOptionPane.showMessageDialog(this, "Success! ", "", JOptionPane.INFORMATION_MESSAGE);
+            view.drawInventory();
             dispose();
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Please provide valid input", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-//        System.out.println(productName.getText());
-//        System.out.println(price.getText());
-//        System.out.println(calories.getText());
-//        System.out.println(quantity.getValue());
 
     }
 

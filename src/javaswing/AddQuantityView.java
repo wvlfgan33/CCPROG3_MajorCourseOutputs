@@ -14,10 +14,12 @@ public class AddQuantityView extends JDialog {
     private JSpinner quantity;
     private JLabel productNameLabel;
     private JLabel quantityLabel;
-    private RegularVendingMachineService regularVendingMachineService;
+    private RegularVendingMachineService vendingMachineService;
+    private RegularVendingMachineView view;
 
-    public AddQuantityView(RegularVendingMachineService regularVendingMachineService) {
-        this.regularVendingMachineService = regularVendingMachineService;
+    public AddQuantityView(RegularVendingMachineView view) {
+        this.vendingMachineService = view.getVendingMachineService();
+        this.view = view;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -57,9 +59,10 @@ public class AddQuantityView extends JDialog {
 
         try{
             int productQuantity = (int) quantity.getValue();
-            Item item = this.regularVendingMachineService.getInventory().findFirst(productName.getText());
-            this.regularVendingMachineService.getInventory().addItem(item, productQuantity);
+            Item item = this.vendingMachineService.getInventory().findFirst(productName.getText());
+            this.vendingMachineService.getInventory().addItem(item, productQuantity);
             JOptionPane.showMessageDialog(this, "Success! ", "", JOptionPane.INFORMATION_MESSAGE);
+            view.drawInventory();
             dispose();
 
 

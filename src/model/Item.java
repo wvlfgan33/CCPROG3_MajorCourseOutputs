@@ -11,17 +11,39 @@ public class Item {
     private double price;
     private double calories;
 
+    private boolean isSellable;
+
+    private boolean isAddOn;
+
 
     /**
-     * Creates an instance of an Item.
-     * @param name The name of the item.
-     * @param price How much the item costs.
-     * @param calories How much, if applicable, calories the item contains.
+     * Creates an instance of an Item
+     * @param name The name of the item
+     * @param price How much the item costs
+     * @param calories How much calories the item contains
      */
     public Item(String name, double price, double calories) {
         this.name = name;
         this.price = price;
         this.calories = calories;
+        this.isSellable = true;
+        this.isAddOn = false;
+    }
+
+    /**
+     * Creates an instance of a Special Item
+     * @param name The name of the item
+     * @param price How much the item costs
+     * @param calories How much calories the item contains
+     * @param isSellable If special
+     * @param isAddOn If add on
+     */
+    public Item(String name, double price, double calories, boolean isSellable, boolean isAddOn) {
+        this.name = name;
+        this.price = price;
+        this.calories = calories;
+        this.isSellable = isSellable;
+        this.isAddOn = isAddOn;
     }
 
     /**
@@ -42,4 +64,19 @@ public class Item {
      */
     public double getCalories() { return calories; }
 
+    /**
+     * Returns isSpecial truth value
+     * @return isSpecial
+     */
+    public boolean isSellable() {
+        return isSellable;
+    }
+
+    /**
+     * Returns isAddOn truth value
+     * @return isAddOn
+     */
+    public boolean isAddOn() {
+        return isAddOn;
+    }
 }

@@ -28,6 +28,13 @@ public class MainFrame extends JFrame {
             }
         });
 
+        openSpecialVendingMachineButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SpecialVendingMachineView(MainFrame.this);
+                MainFrame.this.setVisible(false);
+            }
+        });
     }
 
 
