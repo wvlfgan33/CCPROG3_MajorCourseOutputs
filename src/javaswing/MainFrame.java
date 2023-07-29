@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setContentPane(mainPanel);
         setTitle("[CCPROG3 Vending Machine]");
-        setSize(450, 300);
+        setSize(450, 120);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 

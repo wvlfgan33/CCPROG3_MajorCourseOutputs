@@ -257,7 +257,7 @@ public class RegularVendingMachineView extends JFrame {
        });
    }
 
-   private void initTable(){
+   public void initTable(){
        Vector<String> headers = new Vector<>();
        headers.add("Name");
        headers.add("Price");
