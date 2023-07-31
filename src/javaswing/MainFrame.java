@@ -16,10 +16,6 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-//        openRegularVendingMachineButton = new JButton("Open Regular Vending Machine Window");
-
-
-
         openRegularVendingMachineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

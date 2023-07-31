@@ -124,13 +124,13 @@ public class TransactionsSummary extends JFrame {
 
 
     private void drawInitInventory() {
-        ArrayList<String> uniqueItemNames = this.vendingMachineService.getInventory().getUniqueItemNames();
+        ArrayList<String> uniqueItemNames = this.vendingMachineService.getSummary().getUniqueItemsIniInventory();
         DefaultTableModel tableContents = (DefaultTableModel) this.initialInventoryTable.getModel();
         tableContents.setRowCount(0);
 
         for (String itemName : uniqueItemNames) {
-            double price = this.vendingMachineService.getInventory().getPrice(itemName);
-            double calories = this.vendingMachineService.getInventory().getCalories(itemName);
+            double price = this.vendingMachineService.getSummary().findFirst(itemName).getPrice();
+            double calories = this.vendingMachineService.getSummary().findFirst(itemName).getCalories();
             int quantity = this.vendingMachineService.getSummary().countItemInInitialInventory(itemName);
 
             tableContents.addRow(new Object[] {
