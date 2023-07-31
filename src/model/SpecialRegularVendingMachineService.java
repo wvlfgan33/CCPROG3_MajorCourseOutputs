@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * A model.SpecialVendingMachineService's difference to a RegularVendingMachine is that it has a customizability feature.
+ * It includes cash register, summary, and inventory, if it is operational, and cart (list of items), as components of a model.SpecialVendingMachineService, in order.
+ */
 public class SpecialRegularVendingMachineService extends RegularVendingMachineService {
     @Override
     public void addToCart(String name, int quantity) {

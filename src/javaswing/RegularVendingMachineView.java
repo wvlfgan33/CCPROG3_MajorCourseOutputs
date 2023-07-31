@@ -91,7 +91,7 @@ public class RegularVendingMachineView extends JFrame {
             // Print Summary of Transactions
         this.printSummaryOfTransactions();
 
-        // TODO Remus 4 printSummaryOfTransactions()
+
             // Open to Public
         this.openToPublicButton();
 
