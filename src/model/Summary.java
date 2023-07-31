@@ -76,9 +76,9 @@ public class Summary {
 		ArrayList<String> uniqueNames = new ArrayList<>();
 		for (Item item: this.sales){
 			String nameOfItem = item.getName();
-			if (!uniqueNames.contains(nameOfItem)){
+
 				uniqueNames.add(nameOfItem);
-			}
+
 		}
 		return uniqueNames;
 	}

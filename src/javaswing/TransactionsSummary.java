@@ -11,10 +11,8 @@ import java.util.Vector;
 
 public class TransactionsSummary extends JFrame {
     private JPanel transactionSummaryPanel;
-    private JList listOfSoldItems;
     private JTable initialInventoryTable;
     private JTable currentInventoryTable;
-    private JPanel itemsSoldPanel;
     private JPanel rightPanel;
     private JScrollPane scrollPane;
     private JLabel totalEarnings;
@@ -23,17 +21,17 @@ public class TransactionsSummary extends JFrame {
     private JScrollPane initialInventoryPane;
     private JScrollPane currentInventoryPane;
     private JTable itemsSoldTable;
+    private JPanel leftPanel;
+    private JScrollPane itemsSoldPane;
 
     private RegularVendingMachineService vendingMachineService;
-    private RegularVendingMachineView view;
 
     public TransactionsSummary(RegularVendingMachineView view) {
+        this.vendingMachineService = view.getVendingMachineService();
+        this.initListOfSoldItemsTable();
         this.initInitInventoryTable();
         this.initCurrInventoryTable();
-        this.initListOfSoldItemsTable();
 
-        this.vendingMachineService = view.getVendingMachineService();
-        this.view = view;
 
         setContentPane(transactionSummaryPanel);
         setTitle("Transaction Summary Report");
@@ -49,9 +47,6 @@ public class TransactionsSummary extends JFrame {
         });
 
 
-        // List of sold items
-        this.drawListOfSoldItems();
-
         // Initial inventory table
         this.drawInitInventory();
 
@@ -59,8 +54,7 @@ public class TransactionsSummary extends JFrame {
         this.drawCurrInventory();
 
         // Total earnings
-//        this.calculateTotalEarnings();
-
+        this.calculateTotalEarnings();
 
     }
 
@@ -91,34 +85,18 @@ public class TransactionsSummary extends JFrame {
     }
 
     private void initListOfSoldItemsTable() {
-        Vector<String> header = new Vector<>();
-
-        header.add("Name");
-//        listContents.addElement("Wow");
-//        listContents.addElement("Wow");
-//        listContents.addElement("Wow");
-//        listContents.addElement("Wow");
-//        listContents.addElement("Wow");
-
-        DefaultTableModel tableContents = new DefaultTableModel(header, 0);
-        this.itemsSoldTable.setModel(tableContents);
-
-        this.scrollPane.setViewportView(this.itemsSoldTable);
-    }
-
-    private void drawListOfSoldItems(){
-
         ArrayList<String> soldItems = this.vendingMachineService.getSummary().getUniqueItemNamesInSales();
-        DefaultTableModel tableContents = (DefaultTableModel) this.initialInventoryTable.getModel();
-        tableContents.setRowCount(0);
+        Object[][] data = new Object[soldItems.size()][1];
 
-        for (String item : soldItems){
-            tableContents.addRow(new Object[] {
-                    item
-            });
+        for (int i = 0; i < soldItems.size(); i++) {
+            String itemName = soldItems.get(i);
+            data[i][0] = itemName;
         }
 
-        itemsSoldTable.repaint();
+        DefaultTableModel tableContents = new DefaultTableModel(data, new String[] {"Name"});
+        this.itemsSoldTable.setModel(tableContents);
+
+        this.itemsSoldPane.setViewportView(this.itemsSoldTable);
     }
 
 

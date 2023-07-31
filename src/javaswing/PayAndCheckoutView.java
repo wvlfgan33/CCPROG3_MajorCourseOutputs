@@ -12,7 +12,7 @@ public class PayAndCheckoutView extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JLabel denominationLabel;
-    private JComboBox denomination;
+    private JComboBox<String> denomination;
     private JLabel quantityLabel;
     private JSpinner quantity;
     private JButton makePaymentButton;
