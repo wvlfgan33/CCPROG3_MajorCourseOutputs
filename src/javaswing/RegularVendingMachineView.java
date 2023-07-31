@@ -62,6 +62,7 @@ public class RegularVendingMachineView extends JFrame {
         this.payAndCheckoutButton();
 
         this.clearCartButton();
+        this.viewCartButton();
 
         // Maintenance Features
          // Manage Items
@@ -108,10 +109,12 @@ public class RegularVendingMachineView extends JFrame {
         addToCartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new AddToCartView(RegularVendingMachineView.this);
             }
         });
     }
+
+
 
     // TODO Remus 2.
     protected void payAndCheckoutButton(){
@@ -119,17 +122,32 @@ public class RegularVendingMachineView extends JFrame {
         payAndCheckoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new PayAndCheckoutView(RegularVendingMachineView.this);
+                drawInventory();
+            }
+        });
+    }
+
+    protected void viewCartButton() {
+        viewCartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String msg = "Cart:";
+                for (var c : vendingMachineService.getCart()) {
+                    msg += "\n" + c.getName();
+                }    JOptionPane.showMessageDialog(RegularVendingMachineView.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
 
             }
         });
     }
 
-    // TODO Remus 3.
+
     protected void clearCartButton(){
         clearCartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                vendingMachineService.clearCart();
+                JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Cart cleared! ", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
