@@ -17,10 +17,13 @@ public class BuySpecialCoffeeView extends JDialog {
     private JComboBox sugarbox;
 
 
+
+
+    private SpecialVendingMachineView v;
     private SpecialVendingMachineService vendingMachineService;
 
     public BuySpecialCoffeeView(SpecialVendingMachineView view) {
-
+        this.v = view;
         this.vendingMachineService = view.getSpecialVendingMachineService();
         setContentPane(contentPane);
         setModal(true);
@@ -68,6 +71,8 @@ public class BuySpecialCoffeeView extends JDialog {
         beans = (String) beansbox.getSelectedItem();
         roast = (String) roastbox.getSelectedItem();
 
+        v.setRoast(roast);
+        vendingMachineService.addToCart(beans, 1);
         if (!((String) sugarbox.getSelectedItem()).equals("0% Sugar")) {
             sugarLevel = (String) sugarbox.getSelectedItem();
             vendingMachineService.addToCart(sugarLevel, 1);
@@ -78,7 +83,7 @@ public class BuySpecialCoffeeView extends JDialog {
         misc3 = (String) addon3.getSelectedItem();
 
 
-        vendingMachineService.addToCart(beans, 1);
+
         if (!misc1.equals("")){
             vendingMachineService.addToCart(misc1, 1);
         }
@@ -90,6 +95,7 @@ public class BuySpecialCoffeeView extends JDialog {
         }
 
         dispose();
+
     }
 
     private void onCancel() {

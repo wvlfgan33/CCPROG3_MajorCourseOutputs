@@ -1,7 +1,9 @@
 package javaswing;
 
 import model.Denomination;
+import model.Item;
 import model.RegularVendingMachineService;
+import model.SpecialVendingMachineService;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -94,8 +96,22 @@ public class PayAndCheckoutView extends JDialog {
         try {
             ArrayList<Denomination> change = this.vendingMachineService.payForCart(this.payment);
             //this.vendingMachineService.clearCart();
+            String msg;
+            if (this.vendingMachineService instanceof SpecialVendingMachineService) {
+                msg = "";
 
-            String msg = "Items Bought:";
+                ArrayList<Item> theCart = this.vendingMachineService.getCart();
+                msg += "\nBeans: " + theCart.get(0).getName() + " (" +   ((SpecialVendingMachineView)view).getRoast() +" Roast)";
+                msg += "\nPutting in beans...";
+
+                for (int i = 1; i < theCart.size();i++) {
+                    msg += "\nPutting in " + theCart.get(i).getName() + "...";
+                }
+
+                msg += "\nBrewing...\n\nEnjoy your coffee!";
+
+            } else {
+            msg = "Items Bought:";
             for (var itemsInCart : this.vendingMachineService.getCart()) {
                 msg += "\n- " + itemsInCart.getName();
             }
@@ -104,7 +120,7 @@ public class PayAndCheckoutView extends JDialog {
 
             for (var d : change) {
                 msg += d.name() + " ";
-            }
+            }}
             this.payment = new ArrayList<Denomination>();
             this.vendingMachineService.clearCart();
             JOptionPane.showMessageDialog(this, msg, "", JOptionPane.INFORMATION_MESSAGE);

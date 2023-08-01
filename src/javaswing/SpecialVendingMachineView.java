@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class SpecialVendingMachineView extends RegularVendingMachineView{
 
+    private String coffeeRoast = "";
+
     public SpecialVendingMachineView(MainFrame frame) {
         super(frame);
         setTitle("Special Vending Machine");
@@ -18,6 +20,14 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
         buyCustomCoffeeButton.setEnabled(false);
 
         this.buyCustomCoffeeButton();
+    }
+
+    public String getRoast() {
+        return this.coffeeRoast;
+    }
+
+    public void setRoast(String roast) {
+        this.coffeeRoast = roast;
     }
 
     public SpecialVendingMachineService getSpecialVendingMachineService() {
@@ -141,7 +151,24 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
         buyCustomCoffeeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addToCartButton.setEnabled(false);
                 new BuySpecialCoffeeView(SpecialVendingMachineView.this);
+                buyCustomCoffeeButton.setEnabled(false);
+            }
+        });
+    }
+
+    @Override
+    protected void payAndCheckoutButton(){
+
+        payAndCheckoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PayAndCheckoutView(SpecialVendingMachineView.this);
+                buyCustomCoffeeButton.setEnabled(true);
+                addToCartButton.setEnabled(true);
+                drawInventory();
+
             }
         });
     }

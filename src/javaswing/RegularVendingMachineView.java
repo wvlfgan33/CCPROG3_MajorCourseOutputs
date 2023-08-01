@@ -109,7 +109,9 @@ public class RegularVendingMachineView extends JFrame {
     protected void addToCartButton(){
         addToCartButton.addActionListener(new ActionListener() {
             @Override
+
             public void actionPerformed(ActionEvent e) {
+                buyCustomCoffeeButton.setEnabled(false);
                 new AddToCartView(RegularVendingMachineView.this);
             }
         });
@@ -125,6 +127,7 @@ public class RegularVendingMachineView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 new PayAndCheckoutView(RegularVendingMachineView.this);
                 drawInventory();
+
             }
         });
     }
@@ -134,9 +137,19 @@ public class RegularVendingMachineView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String msg = "Cart:";
+                double totalP = 0;
+                double totalCal = 0;
                 for (var c : vendingMachineService.getCart()) {
                     msg += "\n" + c.getName();
-                }    JOptionPane.showMessageDialog(RegularVendingMachineView.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
+                    totalP += c.getPrice();
+                    totalCal += c.getCalories();
+                }
+
+                msg += "\n\nTotal Price: " + totalP;
+                msg += "\nTotal Calories: " + totalCal;
+
+
+                JOptionPane.showMessageDialog(RegularVendingMachineView.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
 
             }
         });
@@ -147,6 +160,8 @@ public class RegularVendingMachineView extends JFrame {
         clearCartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addToCartButton.setEnabled(true);
+                buyCustomCoffeeButton.setEnabled(true);
                 vendingMachineService.clearCart();
                 JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Cart cleared! ", "", JOptionPane.INFORMATION_MESSAGE);
             }
