@@ -22,7 +22,7 @@ public class AddToCartView extends JDialog {
         setContentPane(addToCartPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        setSize(800,150);
+        setSize(500,150);
 
 
         buttonOK.addActionListener(new ActionListener() {

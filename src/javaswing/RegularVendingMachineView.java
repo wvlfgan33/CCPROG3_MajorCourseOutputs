@@ -246,7 +246,7 @@ public class RegularVendingMachineView extends JFrame {
        printSummaryOfTransactionsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               new TransactionsSummary(RegularVendingMachineView.this);
+               new TransactionsSummaryView(RegularVendingMachineView.this);
            }
        });
    }

@@ -111,10 +111,10 @@ public class PayAndCheckoutView extends JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
         this.payment = new ArrayList<Denomination>();
         dispose();
     }

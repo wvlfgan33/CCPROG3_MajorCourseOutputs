@@ -28,7 +28,7 @@ public class AddProductView extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        setSize(800, 150);
+        setSize(700, 150);
 
 
         buttonOK.addActionListener(new ActionListener() {

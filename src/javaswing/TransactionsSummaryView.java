@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class TransactionsSummary extends JFrame {
+public class TransactionsSummaryView extends JFrame {
     private JPanel transactionSummaryPanel;
     private JTable initialInventoryTable;
     private JTable currentInventoryTable;
@@ -26,7 +26,7 @@ public class TransactionsSummary extends JFrame {
 
     private RegularVendingMachineService vendingMachineService;
 
-    public TransactionsSummary(RegularVendingMachineView view) {
+    public TransactionsSummaryView(RegularVendingMachineView view) {
         this.vendingMachineService = view.getVendingMachineService();
         this.initListOfSoldItemsTable();
         this.initInitInventoryTable();
