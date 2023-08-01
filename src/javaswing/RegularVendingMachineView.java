@@ -62,6 +62,7 @@ public class RegularVendingMachineView extends JFrame {
         this.payAndCheckoutButton();
 
         this.clearCartButton();
+
         this.viewCartButton();
 
         // Maintenance Features

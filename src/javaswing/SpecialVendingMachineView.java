@@ -1,8 +1,7 @@
 package javaswing;
 
 import model.Item;
-import model.RegularVendingMachineService;
-import model.SpecialRegularVendingMachineService;
+import model.SpecialVendingMachineService;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,13 +14,15 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
         setTitle("Special Vending Machine");
 
         super.addProductButton.setEnabled(false);
+
         buyCustomCoffeeButton.setEnabled(false);
+
         this.buyCustomCoffeeButton();
     }
 
-    public SpecialRegularVendingMachineService getSpecialVendingMachineService() {
+    public SpecialVendingMachineService getSpecialVendingMachineService() {
         //if (this.vendingMachineService instanceof SpecialRegularVendingMachineService) {
-            return (SpecialRegularVendingMachineService) this.vendingMachineService;
+            return (SpecialVendingMachineService) this.vendingMachineService;
         //} else {
         //    return null;
        // }
@@ -30,7 +31,7 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
 
     @Override
     protected void initService(){
-        this.vendingMachineService = new SpecialRegularVendingMachineService();
+        this.vendingMachineService = new SpecialVendingMachineService();
     }
 
     @Override
@@ -67,8 +68,8 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
 
                 // Misc
                 Item itemMisc1 = new Item("Creamer", 5.00, 5.0, false, true);
-                Item itemMisc2 = new Item("Dark chocolate", 50.00, 100.0, true, true);
-                Item itemMisc3 = new Item("White chocolate", 50.00, 250.0, true, true);
+                Item itemMisc2 = new Item("Dark Chocolate", 50.00, 100.0, true, true);
+                Item itemMisc3 = new Item("White Chocolate", 50.00, 250.0, true, true);
                 Item itemMisc4 = new Item("Chocolate Syrup", 20.00, 279.0, false, true);
                 Item itemMisc5 = new Item("Vanilla Ice Cream", 20.00, 20.0, true, true);
                 Item itemMisc6 = new Item("Caramel", 10.00, 10.0, false, true);

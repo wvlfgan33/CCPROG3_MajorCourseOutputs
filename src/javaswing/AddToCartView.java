@@ -14,11 +14,11 @@ public class AddToCartView extends JDialog {
     private JSpinner spinner1;
 
     private RegularVendingMachineService vendingMachineService;
-    private RegularVendingMachineView view;
+
 
     public AddToCartView(RegularVendingMachineView view) {
         this.vendingMachineService = view.getVendingMachineService();
-        this.view = view;
+
         setContentPane(addToCartPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);

@@ -1,6 +1,6 @@
 package javaswing;
 
-import model.SpecialRegularVendingMachineService;
+import model.SpecialVendingMachineService;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -16,16 +16,16 @@ public class BuySpecialCoffeeView extends JDialog {
     private JComboBox roastbox;
     private JComboBox sugarbox;
 
-    private SpecialVendingMachineView view;
-    private SpecialRegularVendingMachineService vendingMachineService;
+
+    private SpecialVendingMachineService vendingMachineService;
 
     public BuySpecialCoffeeView(SpecialVendingMachineView view) {
-        this.view = view;
-        this.vendingMachineService = view.getSpecialVendingMachineService();
 
+        this.vendingMachineService = view.getSpecialVendingMachineService();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        setSize(800,300);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -61,9 +61,9 @@ public class BuySpecialCoffeeView extends JDialog {
         String beans;
         String roast;
         String sugarLevel;
-        String addOn1;
-        String addOn2;
-        String addOn3;
+        String misc1;
+        String misc2;
+        String misc3;
 
         beans = (String) beansbox.getSelectedItem();
         roast = (String) roastbox.getSelectedItem();
@@ -72,16 +72,23 @@ public class BuySpecialCoffeeView extends JDialog {
             sugarLevel = (String) sugarbox.getSelectedItem();
             vendingMachineService.addToCart(sugarLevel, 1);
         }
-        addOn1 = (String) addon1.getSelectedItem();
-        addOn2 = (String) addon2.getSelectedItem();
-        addOn3 = (String) addon3.getSelectedItem();
+
+        misc1 = (String) addon1.getSelectedItem();
+        misc2 = (String) addon2.getSelectedItem();
+        misc3 = (String) addon3.getSelectedItem();
+
 
         vendingMachineService.addToCart(beans, 1);
-        //vendingMachineService.addToCart(roast, 1);
-        //vendingMachineService.addToCart(sugarLevel, 1);
-        vendingMachineService.addToCart(addOn1, 1);
-        vendingMachineService.addToCart(addOn2, 1);
-        vendingMachineService.addToCart(addOn3, 1);
+        if (!misc1.equals("")){
+            vendingMachineService.addToCart(misc1, 1);
+        }
+        if (!misc2.equals("")){
+            vendingMachineService.addToCart(misc2, 1);
+        }
+        if (!misc3.equals("")){
+            vendingMachineService.addToCart(misc3, 1);
+        }
+
         dispose();
     }
 
