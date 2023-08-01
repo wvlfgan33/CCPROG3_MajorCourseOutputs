@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2a67656-d473-49d0-8a82-a4d96c1cc110" name="Changes" comment="" />
+    <list default="true" id="d2a67656-d473-49d0-8a82-a4d96c1cc110" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/javaswing/RegularVendingMachineView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javaswing/RegularVendingMachineView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/javaswing/SpecialVendingMachineView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javaswing/SpecialVendingMachineView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SpecialRegularVendingMachineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SpecialRegularVendingMachineService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,17 +35,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TODO_SCOPE": "All Places",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "191",
-    "git-widget-placeholder": "build2",
-    "last_opened_file_path": "C:/Users/Remus/Documents/Java Projects/CCPROG3/CCPROG3_MajorCourseOutputs"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;191&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;build2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Remus/Documents/Java Projects/CCPROG3/CCPROG3_MajorCourseOutputs&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.MainFrame">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />

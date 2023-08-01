@@ -104,7 +104,7 @@ public class RegularVendingMachineView extends JFrame {
 
     // Vending Features
 
-    // TODO Remus 1.
+
     protected void addToCartButton(){
         addToCartButton.addActionListener(new ActionListener() {
             @Override
@@ -116,7 +116,7 @@ public class RegularVendingMachineView extends JFrame {
 
 
 
-    // TODO Remus 2.
+
     protected void payAndCheckoutButton(){
 
         payAndCheckoutButton.addActionListener(new ActionListener() {

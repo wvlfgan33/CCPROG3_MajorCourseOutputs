@@ -1,6 +1,7 @@
 package javaswing;
 
 import model.Item;
+import model.RegularVendingMachineService;
 import model.SpecialRegularVendingMachineService;
 
 import javax.swing.*;
@@ -15,6 +16,15 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
 
         super.addProductButton.setEnabled(false);
         buyCustomCoffeeButton.setEnabled(false);
+        this.buyCustomCoffeeButton();
+    }
+
+    public SpecialRegularVendingMachineService getSpecialVendingMachineService() {
+        //if (this.vendingMachineService instanceof SpecialRegularVendingMachineService) {
+            return (SpecialRegularVendingMachineService) this.vendingMachineService;
+        //} else {
+        //    return null;
+       // }
 
     }
 
@@ -47,8 +57,13 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
                 Item item11 = new Item("Excelsa", 30.00,33.0,false,false);
                 Item item12 = new Item("Liberica", 30.00, 35.0, false, false);
 
+
+
                 // Sugar
-                Item item13 = new Item("Sugar Packet", 5, 5, false, true);
+                Item s100 = new Item("100% Sugar", 20d, 20d, false, true);
+                Item s50 = new Item("50% Sugar", 10d, 10d, false, true);
+                Item s25 = new Item("25% Sugar", 5d, 5d, false, true);
+                //Item s0 = new Item("0% Sugar", 0, 0, false, true);
 
                 // Misc
                 Item itemMisc1 = new Item("Creamer", 5.00, 5.0, false, true);
@@ -73,7 +88,14 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
                 vendingMachineService.getInventory().addItem(item10, 10);
                 vendingMachineService.getInventory().addItem(item11, 10);
                 vendingMachineService.getInventory().addItem(item12, 10);
-                vendingMachineService.getInventory().addItem(item13, 10);
+
+
+
+                vendingMachineService.getInventory().addItem(s100, 10);
+                vendingMachineService.getInventory().addItem(s50, 10);
+                vendingMachineService.getInventory().addItem(s25, 10);
+                //vendingMachineService.getInventory().addItem(s0, 10);
+
                 vendingMachineService.getInventory().addItem(itemMisc1, 10);
                 vendingMachineService.getInventory().addItem(itemMisc2, 10);
                 vendingMachineService.getInventory().addItem(itemMisc3, 10);
@@ -112,5 +134,14 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
         });
 
 
+    }
+
+    protected void buyCustomCoffeeButton() {
+        buyCustomCoffeeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new BuySpecialCoffeeView(SpecialVendingMachineView.this);
+            }
+        });
     }
 }

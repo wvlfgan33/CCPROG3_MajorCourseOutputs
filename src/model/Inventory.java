@@ -28,7 +28,7 @@ public class Inventory {
             throw new IllegalArgumentException("Invalid calories!");
         }
 
-        if (item.getPrice() <= 0){
+        if (item.getPrice() < 0){
             System.err.println("Invalid price! ");
             throw new IllegalArgumentException("Invalid price!");
         }
