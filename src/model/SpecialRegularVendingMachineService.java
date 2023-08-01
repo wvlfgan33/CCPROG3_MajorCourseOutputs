@@ -5,6 +5,12 @@ package model;
  * It includes cash register, summary, and inventory, if it is operational, and cart (list of items), as components of a model.SpecialVendingMachineService, in order.
  */
 public class SpecialRegularVendingMachineService extends RegularVendingMachineService {
+
+    /**
+     * Adds item to the cart.
+     * @param name of the item.
+     * @param quantity of the item.
+     */
     @Override
     public void addToCart(String name, int quantity) {
 
