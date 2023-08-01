@@ -13,7 +13,7 @@ public class Item {
 
     private boolean isSellable;
 
-    private boolean isAddOn;
+
 
 
     /**
@@ -27,7 +27,6 @@ public class Item {
         this.price = price;
         this.calories = calories;
         this.isSellable = true;
-        this.isAddOn = false;
     }
 
     /**
@@ -36,14 +35,13 @@ public class Item {
      * @param price How much the item costs
      * @param calories How much calories the item contains
      * @param isSellable If special
-     * @param isAddOn If add on
      */
-    public Item(String name, double price, double calories, boolean isSellable, boolean isAddOn) {
+    public Item(String name, double price, double calories, boolean isSellable) {
         this.name = name;
         this.price = price;
         this.calories = calories;
         this.isSellable = isSellable;
-        this.isAddOn = isAddOn;
+
     }
 
     /**
@@ -72,11 +70,4 @@ public class Item {
         return isSellable;
     }
 
-    /**
-     * Returns isAddOn truth value
-     * @return isAddOn
-     */
-    public boolean isAddOn() {
-        return isAddOn;
-    }
 }

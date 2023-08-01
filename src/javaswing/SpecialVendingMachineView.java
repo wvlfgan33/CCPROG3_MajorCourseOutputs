@@ -69,28 +69,28 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
                 // Special items
 
                 // Beans
-                Item item9 = new Item("Arabica", 30.00,33.0,false,false);
-                Item item10 = new Item("Robusta", 30.00,33.0,false,false);
-                Item item11 = new Item("Excelsa", 30.00,33.0,false,false);
-                Item item12 = new Item("Liberica", 30.00, 35.0, false, false);
+                Item item9 = new Item("Arabica", 30.00,33.0,false);
+                Item item10 = new Item("Robusta", 30.00,33.0,false);
+                Item item11 = new Item("Excelsa", 30.00,33.0,false);
+                Item item12 = new Item("Liberica", 30.00, 35.0, false);
 
 
 
                 // Sugar
-                Item s100 = new Item("100% Sugar", 20d, 20d, false, true);
-                Item s50 = new Item("50% Sugar", 10d, 10d, false, true);
-                Item s25 = new Item("25% Sugar", 5d, 5d, false, true);
+                Item s100 = new Item("100% Sugar", 20d, 20d, false);
+                Item s50 = new Item("50% Sugar", 10d, 10d, false);
+                Item s25 = new Item("25% Sugar", 5d, 5d, false);
                 //Item s0 = new Item("0% Sugar", 0, 0, false, true);
 
                 // Misc
-                Item itemMisc1 = new Item("Creamer", 5.00, 5.0, false, true);
-                Item itemMisc2 = new Item("Dark Chocolate", 50.00, 100.0, true, true);
-                Item itemMisc3 = new Item("White Chocolate", 50.00, 250.0, true, true);
-                Item itemMisc4 = new Item("Chocolate Syrup", 20.00, 279.0, false, true);
-                Item itemMisc5 = new Item("Vanilla Ice Cream", 20.00, 20.0, true, true);
-                Item itemMisc6 = new Item("Caramel", 10.00, 10.0, false, true);
-                Item itemMisc7 = new Item("Whipped Cream", 5.00, 5.0, false, true);
-                Item itemMisc8 = new Item("Sprinkles", 5.00, 5.0, false, true);
+                Item itemMisc1 = new Item("Creamer", 5.00, 5.0, false);
+                Item itemMisc2 = new Item("Dark Chocolate", 50.00, 100.0, true);
+                Item itemMisc3 = new Item("White Chocolate", 50.00, 250.0, true);
+                Item itemMisc4 = new Item("Chocolate Syrup", 20.00, 279.0, false);
+                Item itemMisc5 = new Item("Vanilla Ice Cream", 20.00, 20.0, true);
+                Item itemMisc6 = new Item("Caramel", 10.00, 10.0, false);
+                Item itemMisc7 = new Item("Whipped Cream", 5.00, 5.0, false);
+                Item itemMisc8 = new Item("Sprinkles", 5.00, 5.0, false);
 
 
                 vendingMachineService.getInventory().addItem(item1, 10);
