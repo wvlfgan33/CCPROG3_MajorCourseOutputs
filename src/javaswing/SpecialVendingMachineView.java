@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class SpecialVendingMachineView extends RegularVendingMachineView{
 
     private String coffeeRoast = "";
+    private boolean isBuyingCoffee = false;
 
     public SpecialVendingMachineView(MainFrame frame) {
         super(frame);
@@ -22,6 +23,13 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
         this.buyCustomCoffeeButton();
     }
 
+    public boolean isBuyingCoffeeStatus() {
+        return this.isBuyingCoffee;
+    }
+
+    public void setBuyingCoffeeStatus(boolean status) {
+        this.isBuyingCoffee = status;
+    }
     public String getRoast() {
         return this.coffeeRoast;
     }
@@ -151,6 +159,7 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
         buyCustomCoffeeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                isBuyingCoffee = true;
                 addToCartButton.setEnabled(false);
                 new BuySpecialCoffeeView(SpecialVendingMachineView.this);
                 buyCustomCoffeeButton.setEnabled(false);

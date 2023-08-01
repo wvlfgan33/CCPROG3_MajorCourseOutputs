@@ -97,7 +97,7 @@ public class PayAndCheckoutView extends JDialog {
             ArrayList<Denomination> change = this.vendingMachineService.payForCart(this.payment);
             //this.vendingMachineService.clearCart();
             String msg;
-            if (this.vendingMachineService instanceof SpecialVendingMachineService) {
+            if (((SpecialVendingMachineView)view).isBuyingCoffeeStatus()) {
                 msg = "";
 
                 ArrayList<Item> theCart = this.vendingMachineService.getCart();
@@ -123,6 +123,7 @@ public class PayAndCheckoutView extends JDialog {
             }}
             this.payment = new ArrayList<Denomination>();
             this.vendingMachineService.clearCart();
+            ((SpecialVendingMachineView)view).setBuyingCoffeeStatus(false);
             JOptionPane.showMessageDialog(this, msg, "", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
