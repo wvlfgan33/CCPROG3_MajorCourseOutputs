@@ -3,7 +3,6 @@ package javaswing;
 import model.Denomination;
 import model.Item;
 import model.RegularVendingMachineService;
-import model.SpecialVendingMachineService;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -98,33 +97,92 @@ public class PayAndCheckoutView extends JDialog {
             //this.vendingMachineService.clearCart();
             String msg;
             if (((SpecialVendingMachineView)view).isBuyingCoffeeStatus()) {
-                msg = "";
-
                 ArrayList<Item> theCart = this.vendingMachineService.getCart();
-                msg += "\nBeans: " + theCart.get(0).getName() + " (" +   ((SpecialVendingMachineView)view).getRoast() +" Roast)";
-                msg += "\nPutting in beans...";
+
+                JTextArea area = new JTextArea();
+                area.setEditable(false);
+                area.setText("Beans: " + theCart.get(0).getName() + " (" +   ((SpecialVendingMachineView)view).getRoast() +" Roast)");
+
+
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        area.setText(area.getText() + "\nRoasting beans...");
+                        area.repaint();
+                    }
+                });
+
+                timer.setRepeats(false);
+                timer.start();
+
+                timer = new Timer(2000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        area.setText(area.getText() + "\nPutting beans...");
+                        area.repaint();
+                    }
+                });
+
+                timer.setRepeats(false);
+                timer.start();
 
                 for (int i = 1; i < theCart.size();i++) {
-                    msg += "\nPutting in " + theCart.get(i).getName() + "...";
+                    String miscItem = theCart.get(i).getName();
+
+                    timer = new Timer(3000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            area.setText(area.getText() + "\nPutting in " + miscItem + "...");
+                            area.repaint();
+                        }
+                    });
+
+                    timer.setRepeats(false);
+                    timer.start();
                 }
 
-                msg += "\nBrewing...\n\nEnjoy your coffee!";
+                timer = new Timer(4000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        area.setText(area.getText() + "\nBrewing...");
+                        area.repaint();
+                    }
+                });
+
+                timer.setRepeats(false);
+                timer.start();
+
+                timer = new Timer(5000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        area.setText(area.getText() + "\nEnjoy your coffee!");
+                        area.repaint();
+                    }
+                });
+
+                timer.setRepeats(false);
+                timer.start();
+
+                JOptionPane.showMessageDialog(this, new JScrollPane(area));
+
 
             } else {
-            msg = "Items Bought:";
-            for (var itemsInCart : this.vendingMachineService.getCart()) {
-                msg += "\n- " + itemsInCart.getName();
-            }
-            msg += "\n\nTotal cost: " + String.valueOf(this.vendingMachineService.getTotalCostInCart());
-            msg += "\nChange:";
+                msg = "Items Bought:";
+                for (var itemsInCart : this.vendingMachineService.getCart()) {
+                    msg += "\n- " + itemsInCart.getName();
+                }
+                msg += "\n\nTotal cost: " + String.valueOf(this.vendingMachineService.getTotalCostInCart());
+                msg += "\nChange:";
 
-            for (var d : change) {
-                msg += d.name() + " ";
-            }}
+                for (var d : change) {
+                    msg += d.name() + " ";
+                }
+                JOptionPane.showMessageDialog(this, msg, "", JOptionPane.INFORMATION_MESSAGE);
+            }
             this.payment = new ArrayList<Denomination>();
             this.vendingMachineService.clearCart();
             ((SpecialVendingMachineView)view).setBuyingCoffeeStatus(false);
-            JOptionPane.showMessageDialog(this, msg, "", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }

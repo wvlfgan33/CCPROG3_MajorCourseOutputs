@@ -59,8 +59,8 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
             public void actionPerformed(ActionEvent e) {
 
                 // Regular items
-                Item item1 = new Item("Coke", 20.00, 139.0);
-                Item item2 = new Item("Pepsi", 20.00, 139.0);
+                Item item1 = new Item("Kopiko 3-in-1", 20.00, 139.0);
+                Item item2 = new Item("Great Taste Coffee 3-in-1", 20.00, 139.0);
                 Item item3 = new Item("St. Miguel Beer", 40.00, 43.5);
                 Item item4 = new Item("St. Joseph Beer", 45.00, 43.0);
                 Item item5 = new Item("Cheetos", 69.00, 160.0);
@@ -89,7 +89,7 @@ public class SpecialVendingMachineView extends RegularVendingMachineView{
                 Item itemMisc2 = new Item("Dark Chocolate", 50.00, 100.0, true, true);
                 Item itemMisc3 = new Item("White Chocolate", 50.00, 250.0, true, true);
                 Item itemMisc4 = new Item("Chocolate Syrup", 20.00, 279.0, false, true);
-                Item itemMisc5 = new Item("Vanilla Ice Cream", 20.00, 20.0, true, true);
+                Item itemMisc5 = new Item("Vanilla Ice cream", 20.00, 20.0, true, true);
                 Item itemMisc6 = new Item("Caramel", 10.00, 10.0, false, true);
                 Item itemMisc7 = new Item("Whipped Cream", 5.00, 5.0, false, true);
                 Item itemMisc8 = new Item("Sprinkles", 5.00, 5.0, false, true);
