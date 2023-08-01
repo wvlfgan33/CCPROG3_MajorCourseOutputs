@@ -163,7 +163,9 @@ public class RegularVendingMachineView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addToCartButton.setEnabled(true);
-                buyCustomCoffeeButton.setEnabled(true);
+                if (RegularVendingMachineView.this instanceof SpecialVendingMachineView){
+                    buyCustomCoffeeButton.setEnabled(true);
+                }
                 vendingMachineService.clearCart();
                 JOptionPane.showMessageDialog(RegularVendingMachineView.this, "Cart cleared! ", "", JOptionPane.INFORMATION_MESSAGE);
             }

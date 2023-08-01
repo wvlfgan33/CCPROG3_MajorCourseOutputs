@@ -72,10 +72,10 @@ public class BuySpecialCoffeeView extends JDialog {
         roast = (String) roastbox.getSelectedItem();
 
         v.setRoast(roast);
-        vendingMachineService.addToCart(beans, 1);
+        vendingMachineService.addSpecialItemToCart(beans, 1);
         if (!((String) sugarbox.getSelectedItem()).equals("0% Sugar")) {
             sugarLevel = (String) sugarbox.getSelectedItem();
-            vendingMachineService.addToCart(sugarLevel, 1);
+            vendingMachineService.addSpecialItemToCart(sugarLevel, 1);
         }
 
         misc1 = (String) addon1.getSelectedItem();
@@ -84,14 +84,14 @@ public class BuySpecialCoffeeView extends JDialog {
 
 
 
-        if (!misc1.equals("")){
-            vendingMachineService.addToCart(misc1, 1);
+        if (!misc1.isEmpty()){
+            vendingMachineService.addSpecialItemToCart(misc1, 1);
         }
-        if (!misc2.equals("")){
-            vendingMachineService.addToCart(misc2, 1);
+        if (!misc2.isEmpty()){
+            vendingMachineService.addSpecialItemToCart(misc2, 1);
         }
-        if (!misc3.equals("")){
-            vendingMachineService.addToCart(misc3, 1);
+        if (!misc3.isEmpty()){
+            vendingMachineService.addSpecialItemToCart(misc3, 1);
         }
 
         dispose();

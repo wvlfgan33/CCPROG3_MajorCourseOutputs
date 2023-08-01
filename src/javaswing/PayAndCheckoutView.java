@@ -96,12 +96,12 @@ public class PayAndCheckoutView extends JDialog {
             ArrayList<Denomination> change = this.vendingMachineService.payForCart(this.payment);
             //this.vendingMachineService.clearCart();
             String msg;
-            if (((SpecialVendingMachineView)view).isBuyingCoffeeStatus()) {
+            if (view instanceof SpecialVendingMachineView && ((SpecialVendingMachineView)view).isBuyingCoffeeStatus()) {
                 ArrayList<Item> theCart = this.vendingMachineService.getCart();
 
                 JTextArea area = new JTextArea();
                 area.setEditable(false);
-                area.setText("Beans: " + theCart.get(0).getName() + " (" +   ((SpecialVendingMachineView)view).getRoast() +" Roast)");
+                area.setText("Beans: " + theCart.get(0).getName() + " (" + ((SpecialVendingMachineView) view).getRoast() + " Roast)");
 
 
                 Timer timer = new Timer(1000, new ActionListener() {
@@ -126,7 +126,7 @@ public class PayAndCheckoutView extends JDialog {
                 timer.setRepeats(false);
                 timer.start();
 
-                for (int i = 1; i < theCart.size();i++) {
+                for (int i = 1; i < theCart.size(); i++) {
                     String miscItem = theCart.get(i).getName();
 
                     timer = new Timer(3000, new ActionListener() {
@@ -165,6 +165,7 @@ public class PayAndCheckoutView extends JDialog {
 
                 JOptionPane.showMessageDialog(this, new JScrollPane(area));
 
+                ((SpecialVendingMachineView)view).setBuyingCoffeeStatus(false);
 
             } else {
                 msg = "Items Bought:";
@@ -181,7 +182,6 @@ public class PayAndCheckoutView extends JDialog {
             }
             this.payment = new ArrayList<Denomination>();
             this.vendingMachineService.clearCart();
-            ((SpecialVendingMachineView)view).setBuyingCoffeeStatus(false);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);

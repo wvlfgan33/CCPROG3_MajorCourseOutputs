@@ -7,25 +7,37 @@ package model;
 public class SpecialVendingMachineService extends RegularVendingMachineService {
 
     /**
-     * Adds item to the cart.
-     * @param name of the item.
-     * @param quantity of the item.
+     * Adds item to the cart
+     * @param name of the item
+     * @param quantity of the item
      */
     @Override
     public void addToCart(String name, int quantity) {
 
         Item item = super.inventory.findFirst(name);
-        //SpecialItem si = (SpecialItem) item;
 
-        //if (si.getType() < 4){
-        //    for (var x : super.cart){
-        //        SpecialItem y = (SpecialItem) x;
-        //        if (y.getType() == si.getType()){
-        //            throw new IllegalArgumentException("You can't have another type of this. ");
-        //        }
-        //    }
-        //}
+        if (!item.isSellable()){
+            throw new IllegalArgumentException("Not sellable. ");
+        }
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Invalid quantity");
+        }
+        if (quantity > super.inventory.getQuantity(name)){
+            throw new IllegalArgumentException("Not enough quantity for the requested item");
+        }
+        for (int i = 0; i < quantity; i++){
+            super.cart.add(item);
+        }
+    }
 
+    /**
+     * Adds special item to cart
+     * @param name of the item
+     * @param quantity of the item
+     */
+    public void addSpecialItemToCart(String name, int quantity) {
+
+        Item item = super.inventory.findFirst(name);
 
         if (quantity > super.inventory.getQuantity(name)){
             throw new IllegalArgumentException("Not enough quantity for the requested item");

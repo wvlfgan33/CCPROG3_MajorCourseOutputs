@@ -82,8 +82,8 @@ public class RegularVendingMachineService {
 
             Item item = this.inventory.findFirst(name);
 
-			if (!item.isSellable()){
-				throw new IllegalArgumentException("Not sellable. ");
+			if (quantity <= 0) {
+				throw new IllegalArgumentException("Invalid quantity");
 			}
             if (quantity > this.inventory.getQuantity(name)){
                 throw new IllegalArgumentException("Not enough quantity for the requested item");
